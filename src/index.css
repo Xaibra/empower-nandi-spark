@@ -2,39 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Tujitume Youth and Women CBO Design System
+Inspired by Kenyan landscape and community empowerment
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors inspired by Kenyan earth and sky */
+    --background: 35 20% 97%;
+    --foreground: 25 15% 15%;
 
+    /* Card and surface colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 25 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 25 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Deep earth brown for trust and stability */
+    --primary: 25 35% 25%;
+    --primary-foreground: 35 20% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Warm orange for energy and empowerment */
+    --secondary: 35 85% 55%;
+    --secondary-foreground: 25 35% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted earth tones */
+    --muted: 35 15% 92%;
+    --muted-foreground: 25 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Vibrant green for growth and hope */
+    --accent: 145 60% 45%;
+    --accent-foreground: 0 0% 100%;
 
+    /* Impact - Success green */
+    --success: 145 70% 40%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warm community orange */
+    --community: 25 90% 60%;
+    --community-foreground: 0 0% 100%;
+
+    /* Destructive remains standard */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Border and input colors */
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 145 60% 45%;
 
     --radius: 0.5rem;
 
@@ -100,6 +117,38 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Custom gradients and animations for impact */
+@layer utilities {
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--secondary)) 100%);
+  }
+  
+  .gradient-community {
+    background: linear-gradient(135deg, hsl(var(--community)) 0%, hsl(var(--secondary)) 100%);
+  }
+  
+  .gradient-impact {
+    background: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(var(--accent)) 100%);
+  }
+  
+  .shadow-warm {
+    box-shadow: 0 10px 30px -10px hsl(var(--secondary) / 0.3);
+  }
+  
+  .shadow-impact {
+    box-shadow: 0 10px 30px -10px hsl(var(--accent) / 0.3);
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
   }
 }
