@@ -45,9 +45,9 @@ const Team = () => {
       name: "Sarah Kimutai",
       role: "Executive Director & Co-Founder",
       department: "Leadership",
-      bio: "A passionate community development professional with extensive experience in youth and women empowerment. Sarah co-founded Tujitume in April 2024 after witnessing firsthand the challenges facing young people in Nandi County. She holds a degree in Social Work and brings proven expertise in entrepreneurship training.",
+      bio: "A passionate community development professional with extensive experience in youth and women empowerment. Sarah co-founded Tujitume in April 2025 after witnessing firsthand the challenges facing young people in Nandi County. She holds a degree in Social Work and brings proven expertise in entrepreneurship training.",
       achievements: [
-        "Co-founded organization in April 2024 with clear vision and strategic planning",
+        "Co-founded organization in April 2025 with clear vision and strategic planning",
         "Rapidly secured partnerships with 8+ local and international organizations", 
         "Recognized as 'Young Leader of the Year' by Nandi County Government (2022)",
         "Certified trainer in business development and financial literacy"

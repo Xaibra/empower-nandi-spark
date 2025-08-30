@@ -37,28 +37,28 @@ const About = () => {
 
   const milestones = [
     {
-      year: "April 2024",
+      year: "April 2025",
       title: "Founded with Vision",
       description: "Established by passionate community leaders with a clear vision to address youth and women's challenges in Nandi County.",
       icon: Users,
       color: "text-secondary"
     },
     {
-      year: "May 2024",
+      year: "May 2025",
       title: "First Programs Launch",
       description: "Rapidly initiated skills training and economic empowerment programs, immediately engaging with local communities.",
       icon: Target,
       color: "text-primary"
     },
     {
-      year: "June-July 2024",
+      year: "June-July 2025",
       title: "Rapid Community Growth",
       description: "Expanded outreach across multiple sub-counties with dynamic programming and community engagement initiatives.",
       icon: Heart,
       color: "text-accent"
     },
     {
-      year: "August 2024",
+      year: "August 2025",
       title: "Building Momentum",
       description: "Achieved significant community impact, established key partnerships, and launched comprehensive digital presence.",
       icon: Award,
@@ -139,7 +139,7 @@ const About = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-primary mb-2">Our Founding Vision</h3>
-                    <Badge variant="secondary" className="mb-4">Est. April 2024</Badge>
+                    <Badge variant="secondary" className="mb-4">Est. April 2025</Badge>
                   </div>
                 </div>
                 

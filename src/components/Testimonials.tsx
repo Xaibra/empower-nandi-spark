@@ -107,7 +107,7 @@ const Testimonials = () => {
       title: "From Dropout to University Graduate",
       beneficiary: "Jane Kiplagat, 21",
       program: "Education & Scholarships", 
-      timeline: "2020 - 2024",
+      timeline: "2020 - 2025",
       challenge: "Jane dropped out of secondary school due to financial constraints when her father lost his job. She was working as a house help in Nairobi, earning barely enough to survive.",
       intervention: "Tujitume's scholarship program identified Jane through community outreach. They provided full secondary school sponsorship, mentorship, and career guidance support.",
       outcome: "Jane completed her KCSE with a B+ mean grade and received a full scholarship to study Community Development at Moi University. She now volunteers with Tujitume during holidays.",

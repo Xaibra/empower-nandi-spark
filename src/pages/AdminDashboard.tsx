@@ -88,21 +88,21 @@ const AdminDashboard = () => {
     {
       id: '1',
       title: 'Women\'s Economic Empowerment Workshop',
-      date: '2024-09-15',
+      date: '2025-09-15',
       type: 'Workshop',
       participants: 50
     },
     {
       id: '2',
       title: 'Digital Skills Bootcamp Registration Opens',
-      date: '2024-09-20',
+      date: '2025-09-20',
       type: 'Registration',
       participants: 100
     },
     {
       id: '3',
       title: 'Community Health Fair',
-      date: '2024-09-25',
+      date: '2025-09-25',
       type: 'Health Fair',
       participants: 300
     }

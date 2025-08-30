@@ -191,7 +191,7 @@ const Footer = () => {
           <div className="border-t border-white/20 mt-16 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-sm opacity-80 flex items-center">
-                © 2024 Tujitume Youth and Women CBO. Made with 
+                © 2025 Tujitume Youth and Women CBO. Made with
                 <Heart className="h-4 w-4 text-secondary mx-2 animate-pulse" /> 
                 in Nandi County, Kenya
               </p>

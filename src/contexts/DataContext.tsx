@@ -157,9 +157,9 @@ const initialData = {
       name: 'Sarah Kimutai',
       role: 'Executive Director & Co-Founder',
       department: 'Leadership',
-      bio: 'A passionate community development professional with extensive experience in youth and women empowerment. Co-founded Tujitume in April 2024.',
+      bio: 'A passionate community development professional with extensive experience in youth and women empowerment. Co-founded Tujitume in April 2025.',
       achievements: [
-        'Co-founded organization in April 2024 with clear vision and strategic planning',
+        'Co-founded organization in April 2025 with clear vision and strategic planning',
         'Rapidly secured partnerships with 8+ local and international organizations',
         'Recognized as Young Leader of the Year by Nandi County Government (2022)'
       ],
@@ -169,7 +169,7 @@ const initialData = {
       image: '/team/sarah-kimutai.jpg',
       color: 'secondary',
       isActive: true,
-      joinDate: '2024-04-01'
+      joinDate: '2025-04-01'
     },
     {
       id: '2',
@@ -188,7 +188,7 @@ const initialData = {
       image: '/team/james-kosgei.jpg',
       color: 'primary',
       isActive: true,
-      joinDate: '2024-04-10'
+      joinDate: '2025-04-10'
     }
   ] as TeamMember[],
   
@@ -201,7 +201,7 @@ const initialData = {
       category: 'achievements',
       type: 'article',
       author: 'Sarah Kimutai',
-      date: '2024-11-15',
+      date: '2025-11-15',
       readTime: '4 min',
       tags: ['Digital Skills', 'Youth Employment', 'Success Story'],
       featured: true,
@@ -217,7 +217,7 @@ const initialData = {
       id: '1',
       title: 'Women\'s Economic Empowerment Workshop',
       description: 'Join us for a comprehensive workshop on economic empowerment strategies for women in Nandi County.',
-      date: '2024-12-15',
+      date: '2025-12-15',
       time: '9:00 AM',
       location: 'Kapsabet Community Center',
       type: 'Workshop',
@@ -233,7 +233,7 @@ const initialData = {
       name: 'UN Women Kenya',
       category: 'funding',
       type: 'International Development Agency',
-      partnership: '2024 - Present',
+      partnership: '2025 - Present',
       focus: 'Women\'s Economic Empowerment & Gender Equality',
       contribution: 'USD 45,000 funding for women-focused programs',
       impact: '300+ women reached with economic empowerment training',
