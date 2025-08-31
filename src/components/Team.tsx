@@ -156,26 +156,101 @@ const Team = () => {
     }
   };
 
-  const boardMembers = [
-    {
-      name: "Hon. Mary Keitany",
-      role: "Board Chairperson",
-      background: "Former County Executive Committee Member, advocate for youth and women rights",
-      expertise: "Governance, Policy Development, Strategic Oversight"
+  // Board Governance Structure
+  const boardStructure = {
+    executive: {
+      title: "Board Executive",
+      positions: [
+        {
+          role: "Board Chairperson",
+          gender: "female",
+          icon: Crown,
+          color: "secondary",
+          responsibilities: ["Strategic Governance", "Board Leadership", "External Relations", "Policy Oversight"],
+          background: "Senior governance professional with extensive experience in nonprofit leadership and community development",
+          expertise: "Governance, Policy Development, Strategic Oversight"
+        },
+        {
+          role: "Vice Chairperson",
+          gender: "female",
+          icon: Award,
+          color: "primary",
+          responsibilities: ["Deputy Leadership", "Committee Coordination", "Succession Planning", "Board Development"],
+          background: "Experienced development practitioner with focus on women's rights and community empowerment",
+          expertise: "Leadership Development, Gender Advocacy, Strategic Planning"
+        }
+      ]
     },
-    {
-      name: "Dr. Peter Langat", 
-      role: "Board Member - Programs",
-      background: "Development practitioner with 20+ years in community health and education",
-      expertise: "Program Quality Assurance, Health Systems, Research"
+    finance: {
+      title: "Financial Oversight",
+      positions: [
+        {
+          role: "Board Treasurer",
+          gender: "female",
+          icon: DollarSign,
+          color: "community",
+          responsibilities: ["Financial Oversight", "Budget Approval", "Risk Management", "Audit Supervision"],
+          background: "Senior financial professional with expertise in nonprofit financial management and microfinance",
+          expertise: "Financial Management, Risk Assessment, Microfinance, Audit"
+        },
+        {
+          role: "Finance Committee Chair",
+          gender: "male",
+          icon: TrendingUp,
+          color: "accent",
+          responsibilities: ["Investment Oversight", "Financial Strategy", "Donor Relations", "Compliance"],
+          background: "Banking and finance expert with experience in development finance and impact investing",
+          expertise: "Investment Management, Development Finance, Banking"
+        }
+      ]
     },
-    {
-      name: "Esther Sang",
-      role: "Board Treasurer", 
-      background: "Senior banker with expertise in microfinance and women's economic empowerment",
-      expertise: "Financial Oversight, Risk Management, Microfinance"
+    programs: {
+      title: "Program Governance",
+      positions: [
+        {
+          role: "Programs Committee Chair",
+          gender: "female",
+          icon: Building,
+          color: "primary",
+          responsibilities: ["Program Quality", "Impact Assessment", "Strategic Direction", "Innovation Guidance"],
+          background: "Development practitioner with 20+ years in community health, education, and program management",
+          expertise: "Program Management, Impact Measurement, Community Development"
+        },
+        {
+          role: "Youth & Women Advocate",
+          gender: "female",
+          icon: Heart,
+          color: "secondary",
+          responsibilities: ["Beneficiary Representation", "Gender Equality", "Youth Advocacy", "Community Voice"],
+          background: "Community leader and advocate with lived experience in youth and women's empowerment initiatives",
+          expertise: "Community Advocacy, Gender Equality, Youth Development"
+        }
+      ]
+    },
+    governance: {
+      title: "Governance & Compliance",
+      positions: [
+        {
+          role: "Secretary",
+          gender: "female",
+          icon: BookOpen,
+          color: "accent",
+          responsibilities: ["Board Records", "Legal Compliance", "Meeting Coordination", "Documentation"],
+          background: "Legal and governance professional with expertise in nonprofit law and regulatory compliance",
+          expertise: "Legal Compliance, Corporate Governance, Record Management"
+        },
+        {
+          role: "Governance Committee Chair",
+          gender: "male",
+          icon: Shield,
+          color: "community",
+          responsibilities: ["Policy Development", "Ethics Oversight", "Board Evaluation", "Stakeholder Relations"],
+          background: "Governance expert with experience in organizational development and ethics management",
+          expertise: "Organizational Development, Ethics, Stakeholder Engagement"
+        }
+      ]
     }
-  ];
+  };
 
   const stats = [
     { icon: Users, value: "15+", label: "Team Members", color: "text-secondary" },
@@ -411,39 +486,248 @@ const Team = () => {
           </div>
         </div>
 
-        {/* Board of Directors */}
+        {/* Board Governance Structure */}
         <div className={`mb-16 transition-all duration-1000 delay-600 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Board of <span className="text-secondary">Directors</span>
+              Board <span className="text-secondary">Governance</span>
             </h3>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Distinguished leaders providing strategic guidance and governance oversight
+              Strategic governance structure ensuring accountability, transparency, and community representation
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {boardMembers.map((member, index) => (
-              <Card 
-                key={index}
-                className="p-6 text-center transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 hover:border-primary/20"
-                style={{ animationDelay: `${index * 0.1 + 0.6}s` }}
-              >
-                <CardContent className="p-0">
-                  <div className="w-20 h-20 bg-gradient-community rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Shield className="h-10 w-10 text-white" />
-                  </div>
-                  <h4 className="text-xl font-bold text-primary mb-2">{member.name}</h4>
-                  <p className="text-secondary font-semibold mb-3">{member.role}</p>
-                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{member.background}</p>
-                  <Badge variant="outline" className="text-xs">
-                    {member.expertise}
-                  </Badge>
-                </CardContent>
-              </Card>
-            ))}
+          {/* Board Executive */}
+          <div className="mb-12">
+            <div className="text-center mb-8">
+              <h4 className="text-xl font-bold text-primary mb-2">{boardStructure.executive.title}</h4>
+              <div className="w-20 h-1 bg-gradient-brand mx-auto"></div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {boardStructure.executive.positions.map((position, index) => {
+                const Icon = position.icon;
+                return (
+                  <Card 
+                    key={index}
+                    className="group transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className={`w-14 h-14 bg-gradient-${position.color} rounded-full flex items-center justify-center mr-3`}>
+                          <Icon className="h-7 w-7 text-white" />
+                        </div>
+                        <Badge 
+                          variant={position.gender === 'female' ? 'default' : 'outline'} 
+                          className="text-xs"
+                        >
+                          {position.gender === 'female' ? '👩' : '👨'} {position.gender === 'female' ? 'Female' : 'Male'}
+                        </Badge>
+                      </div>
+                      <h5 className="text-lg font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+                        {position.role}
+                      </h5>
+                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{position.background}</p>
+                      <div className="space-y-2 mb-4">
+                        {position.responsibilities.map((resp, idx) => (
+                          <div key={idx} className="flex items-center justify-center text-xs text-muted-foreground">
+                            <div className="w-1.5 h-1.5 bg-secondary rounded-full mr-2"></div>
+                            <span>{resp}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {position.expertise}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Financial Oversight */}
+          <div className="mb-12">
+            <div className="text-center mb-8">
+              <h4 className="text-xl font-bold text-primary mb-2">{boardStructure.finance.title}</h4>
+              <div className="w-20 h-1 bg-gradient-brand mx-auto"></div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {boardStructure.finance.positions.map((position, index) => {
+                const Icon = position.icon;
+                return (
+                  <Card 
+                    key={index}
+                    className="group transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 hover:border-primary/20"
+                    style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className={`w-12 h-12 bg-gradient-${position.color} rounded-full flex items-center justify-center mr-3`}>
+                          <Icon className="h-6 w-6 text-white" />
+                        </div>
+                        <Badge 
+                          variant={position.gender === 'female' ? 'default' : 'outline'} 
+                          className="text-xs"
+                        >
+                          {position.gender === 'female' ? '👩' : '👨'} {position.gender === 'female' ? 'Female' : 'Male'}
+                        </Badge>
+                      </div>
+                      <h5 className="text-base font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+                        {position.role}
+                      </h5>
+                      <p className="text-sm text-muted-foreground mb-3 leading-relaxed line-clamp-2">{position.background}</p>
+                      <div className="space-y-1 mb-3">
+                        {position.responsibilities.slice(0, 2).map((resp, idx) => (
+                          <div key={idx} className="flex items-center text-xs text-muted-foreground">
+                            <div className="w-1 h-1 bg-accent rounded-full mr-2 flex-shrink-0"></div>
+                            <span className="truncate">{resp}</span>
+                          </div>
+                        ))}
+                        {position.responsibilities.length > 2 && (
+                          <div className="text-xs text-muted-foreground">+{position.responsibilities.length - 2} more</div>
+                        )}
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {position.expertise.split(',')[0]}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Program Governance */}
+          <div className="mb-12">
+            <div className="text-center mb-8">
+              <h4 className="text-xl font-bold text-primary mb-2">{boardStructure.programs.title}</h4>
+              <div className="w-20 h-1 bg-gradient-brand mx-auto"></div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {boardStructure.programs.positions.map((position, index) => {
+                const Icon = position.icon;
+                return (
+                  <Card 
+                    key={index}
+                    className="group transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 hover:border-accent/20"
+                    style={{ animationDelay: `${index * 0.1 + 0.4}s` }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className={`w-12 h-12 bg-gradient-${position.color} rounded-full flex items-center justify-center mr-3`}>
+                          <Icon className="h-6 w-6 text-white" />
+                        </div>
+                        <Badge 
+                          variant={position.gender === 'female' ? 'default' : 'outline'} 
+                          className="text-xs"
+                        >
+                          {position.gender === 'female' ? '👩' : '👨'} {position.gender === 'female' ? 'Female' : 'Male'}
+                        </Badge>
+                      </div>
+                      <h5 className="text-base font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+                        {position.role}
+                      </h5>
+                      <p className="text-sm text-muted-foreground mb-3 leading-relaxed line-clamp-2">{position.background}</p>
+                      <div className="space-y-1 mb-3">
+                        {position.responsibilities.slice(0, 2).map((resp, idx) => (
+                          <div key={idx} className="flex items-center text-xs text-muted-foreground">
+                            <div className="w-1 h-1 bg-secondary rounded-full mr-2 flex-shrink-0"></div>
+                            <span className="truncate">{resp}</span>
+                          </div>
+                        ))}
+                        {position.responsibilities.length > 2 && (
+                          <div className="text-xs text-muted-foreground">+{position.responsibilities.length - 2} more</div>
+                        )}
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {position.expertise.split(',')[0]}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Governance & Compliance */}
+          <div className="mb-12">
+            <div className="text-center mb-8">
+              <h4 className="text-xl font-bold text-primary mb-2">{boardStructure.governance.title}</h4>
+              <div className="w-20 h-1 bg-gradient-brand mx-auto"></div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {boardStructure.governance.positions.map((position, index) => {
+                const Icon = position.icon;
+                return (
+                  <Card 
+                    key={index}
+                    className="group transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 hover:border-community/20"
+                    style={{ animationDelay: `${index * 0.1 + 0.6}s` }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className={`w-12 h-12 bg-gradient-${position.color} rounded-full flex items-center justify-center mr-3`}>
+                          <Icon className="h-6 w-6 text-white" />
+                        </div>
+                        <Badge 
+                          variant={position.gender === 'female' ? 'default' : 'outline'} 
+                          className="text-xs"
+                        >
+                          {position.gender === 'female' ? '👩' : '👨'} {position.gender === 'female' ? 'Female' : 'Male'}
+                        </Badge>
+                      </div>
+                      <h5 className="text-base font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+                        {position.role}
+                      </h5>
+                      <p className="text-sm text-muted-foreground mb-3 leading-relaxed line-clamp-2">{position.background}</p>
+                      <div className="space-y-1 mb-3">
+                        {position.responsibilities.slice(0, 2).map((resp, idx) => (
+                          <div key={idx} className="flex items-center text-xs text-muted-foreground">
+                            <div className="w-1 h-1 bg-primary rounded-full mr-2 flex-shrink-0"></div>
+                            <span className="truncate">{resp}</span>
+                          </div>
+                        ))}
+                        {position.responsibilities.length > 2 && (
+                          <div className="text-xs text-muted-foreground">+{position.responsibilities.length - 2} more</div>
+                        )}
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {position.expertise.split(',')[0]}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Board Demographics */}
+          <div className="bg-gradient-to-r from-accent/5 via-community/5 to-accent/5 rounded-2xl p-8 border-2 border-accent/20">
+            <div className="text-center mb-6">
+              <h4 className="text-2xl font-bold text-primary mb-2">Board Demographics</h4>
+              <p className="text-muted-foreground">Commitment to diverse and inclusive board governance</p>
+            </div>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">75%</div>
+                <div className="text-sm text-muted-foreground">Women on Board</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-2">8</div>
+                <div className="text-sm text-muted-foreground">Board Positions</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-accent mb-2">4</div>
+                <div className="text-sm text-muted-foreground">Board Committees</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-community mb-2">100%</div>
+                <div className="text-sm text-muted-foreground">Governance Compliance</div>
+              </div>
+            </div>
           </div>
         </div>
 
