@@ -1,5 +1,5 @@
-import { BookOpen, Shield, Users, Leaf, ArrowRight, Sparkles, Target, Heart, Zap, TrendingUp } from "lucide-react";
-import { useState, useEffect } from "react";
+import { BookOpen, Shield, Users, Leaf, ArrowRight, Sparkles, Target, Heart, Zap, TrendingUp, CheckCircle, Star } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,36 +9,124 @@ const ValueProposition = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeApproach, setActiveApproach] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
+  const [visibleSteps, setVisibleSteps] = useState<boolean[]>([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const { ctaActions, formActions } = useButtonAction();
 
+  // Mouse tracking for interactive effects
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+        y: ((e.clientY - rect.top) / rect.height - 0.5) * 2,
+      });
+    }
+  }, []);
+
+  // Advanced Intersection Observer with staggered animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          
+          // Stagger card animations
+          setTimeout(() => {
+            setVisibleCards(prev => {
+              const newCards = [...prev];
+              newCards[0] = true;
+              return newCards;
+            });
+          }, 200);
+          
+          setTimeout(() => {
+            setVisibleCards(prev => {
+              const newCards = [...prev];
+              newCards[1] = true;
+              return newCards;
+            });
+          }, 400);
+          
+          setTimeout(() => {
+            setVisibleCards(prev => {
+              const newCards = [...prev];
+              newCards[2] = true;
+              return newCards;
+            });
+          }, 600);
+          
+          setTimeout(() => {
+            setVisibleCards(prev => {
+              const newCards = [...prev];
+              newCards[3] = true;
+              return newCards;
+            });
+          }, 800);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.2, rootMargin: '-50px' }
     );
 
-    const element = document.getElementById('approach-section');
-    if (element) observer.observe(element);
+    const stepsObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Stagger step animations
+          [0, 1, 2, 3].forEach((index) => {
+            setTimeout(() => {
+              setVisibleSteps(prev => {
+                const newSteps = [...prev];
+                newSteps[index] = true;
+                return newSteps;
+              });
+            }, index * 150);
+          });
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+        setScrollProgress(progress);
+      }
+    };
+
+    const element = sectionRef.current;
+    const stepsElement = document.getElementById('transformation-steps');
+    
+    if (element) {
+      observer.observe(element);
+      element.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('scroll', handleScroll);
+    }
+    if (stepsElement) stepsObserver.observe(stepsElement);
 
     return () => {
-      if (element) observer.unobserve(element);
+      if (element) {
+        observer.unobserve(element);
+        element.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('scroll', handleScroll);
+      }
+      if (stepsElement) stepsObserver.unobserve(stepsElement);
     };
-  }, []);
+  }, [handleMouseMove]);
 
-  // Auto-rotate active approach every 6 seconds (slower and more subtle)
+  // Enhanced auto-rotate with pause on hover
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || hoveredCard !== null) return;
     
     const interval = setInterval(() => {
       setActiveApproach((prev) => (prev + 1) % 4);
-    }, 6000); // Increased from 4s to 6s for more subtle rotation
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [isVisible]);
+  }, [isVisible, hoveredCard]);
 
   const approaches = [
     {
@@ -111,13 +199,54 @@ const ValueProposition = () => {
   ];
 
   return (
-    <section id="approach-section" className="py-20 bg-gradient-to-br from-background via-muted/20 to-background relative overflow-hidden">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 opacity-3">
-        <div className="absolute top-20 left-32 w-24 h-24 bg-secondary rounded-full animate-float-particles" style={{ animationDuration: '12s' }}></div>
-        <div className="absolute top-60 right-20 w-20 h-20 bg-primary rounded-full animate-float-particles" style={{ animationDelay: '4s', animationDuration: '14s' }}></div>
-        <div className="absolute bottom-32 left-16 w-16 h-16 bg-accent rounded-full animate-float-particles" style={{ animationDelay: '8s', animationDuration: '16s' }}></div>
-        <div className="absolute bottom-60 right-40 w-12 h-12 bg-secondary rounded-full animate-float-particles" style={{ animationDelay: '12s', animationDuration: '18s' }}></div>
+    <section ref={sectionRef as any} id="approach-section" className="py-20 bg-gradient-to-br from-background via-muted/30 to-background relative overflow-hidden">
+      {/* Elegant Background Elements with responsive motion */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div 
+          className="absolute top-20 left-32 w-24 h-24 rounded-full animate-organic-float"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(255,122,69,0.25) 0%, rgba(255,122,69,0) 60%)', 
+            transform: `translate3d(${mousePosition.x * 8}px, ${mousePosition.y * 5}px, 0)`,
+            animationDelay: '2.3s',
+            animationDuration: '12s'
+          }}
+        />
+        <div 
+          className="absolute top-60 right-20 w-20 h-20 rounded-full animate-subtle-drift"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(54,83,201,0.25) 0%, rgba(54,83,201,0) 60%)', 
+            transform: `translate3d(${mousePosition.x * -6}px, ${mousePosition.y * -4}px, 0)`, 
+            animationDelay: '5.7s',
+            animationDuration: '16s'
+          }}
+        />
+        <div 
+          className="absolute bottom-32 left-16 w-16 h-16 rounded-full animate-breathe"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(34,197,94,0.25) 0%, rgba(34,197,94,0) 60%)', 
+            transform: `translate3d(${mousePosition.x * 4}px, ${mousePosition.y * -5}px, 0)`, 
+            animationDelay: '8.1s',
+            animationDuration: '10s'
+          }}
+        />
+        <div 
+          className="absolute bottom-60 right-40 w-12 h-12 rounded-full animate-float-gentle"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%)', 
+            transform: `translate3d(${mousePosition.x * -3}px, ${mousePosition.y * 6}px, 0)`, 
+            animationDelay: '11.4s',
+            animationDuration: '14s'
+          }}
+        />
+        <div 
+          className="absolute top-1/3 right-1/3 w-18 h-18 rounded-full animate-organic-float"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(168,85,247,0) 60%)', 
+            transform: `translate3d(${mousePosition.x * 7}px, ${mousePosition.y * -3}px, 0)`, 
+            animationDelay: '14.2s',
+            animationDuration: '18s'
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -152,11 +281,14 @@ const ValueProposition = () => {
               const Icon = approach.icon;
               const isActive = activeApproach === index;
               const isHovered = hoveredCard === index;
+              const cardVisible = visibleCards[index];
               
               return (
                 <Card 
                   key={index}
-                  className={`group cursor-pointer transition-all duration-700 hover:scale-[1.02] border-2 overflow-hidden ${
+                  className={`group cursor-pointer transition-all duration-700 hover:scale-[1.02] border-2 overflow-hidden transform ${
+                    cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  } ${
                     isActive 
                       ? 'border-secondary shadow-xl shadow-secondary/10 scale-[1.01] bg-gradient-to-br from-white to-secondary/3' 
                       : 'border-muted hover:border-secondary/40 hover:shadow-lg'
@@ -166,7 +298,11 @@ const ValueProposition = () => {
                     setActiveApproach(index);
                   }}
                   onMouseLeave={() => setHoveredCard(null)}
-                    style={{ animationDelay: `${index * 0.15}s` }}
+                  style={{ 
+                    transitionDelay: `${(index * 0.2 + Math.sin(index) * 0.1).toFixed(2)}s`,
+                    transitionDuration: `${(0.7 + index * 0.1).toFixed(2)}s`,
+                    transform: `translate3d(${mousePosition.x * (0.8 + index * 0.25)}px, ${mousePosition.y * (0.4 + index * 0.15)}px, 0) ${cardVisible ? 'translateY(0)' : 'translateY(48px)'}`,
+                  }}
                 >
                   <CardContent className="p-0">
                     {/* Card Header with Icon */}
@@ -257,48 +393,85 @@ const ValueProposition = () => {
         </div>
 
         {/* Transformation Process */}
-        <div className={`mb-20 transition-all duration-1200 delay-600 ease-out ${
+        <div id="transformation-steps" className={`mb-20 transition-all duration-1200 delay-600 ease-out ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Our <span className="text-secondary">Transformation Process</span>
+            <div className="inline-flex items-center justify-center mb-6">
+              <Star className="h-4 w-4 text-secondary mr-3 opacity-70" />
+              <span className="text-sm font-medium text-secondary uppercase tracking-widest">Our Process</span>
+              <Star className="h-4 w-4 text-secondary ml-3 opacity-70" />
+            </div>
+            <h3 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+              Our <span className="text-brand-gradient">Transformation Process</span>
             </h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A systematic approach to creating sustainable community change
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              A systematic, evidence-based approach to creating 
+              <span className="text-secondary font-semibold">sustainable community change</span> 
+              through collaborative innovation.
             </p>
           </div>
 
           <div className="relative">
-            {/* Process Line */}
-            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-secondary via-primary to-secondary transform -translate-y-px hidden lg:block"></div>
+            {/* Animated Progress Line */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-muted via-muted to-muted transform -translate-y-px hidden lg:block overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-secondary via-primary to-secondary transition-all duration-2000 ease-out"
+                style={{ width: `${scrollProgress * 100}%` }}
+              ></div>
+            </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {transformationSteps.map((step, index) => {
                 const StepIcon = step.icon;
+                const isVisible = visibleSteps[index];
                 return (
                   <div 
                     key={index} 
-                    className="text-center group relative"
-                    style={{ animationDelay: `${index * 0.25}s` }}
+                    className={`text-center group relative transition-all duration-700 ease-out transform ${
+                      isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
+                    }`}
+                    style={{ 
+                      transitionDelay: `${(index * 0.25 + Math.cos(index) * 0.15).toFixed(2)}s`,
+                      transitionDuration: `${(0.7 + index * 0.08).toFixed(2)}s`,
+                      transform: `translate3d(${mousePosition.x * (1.5 + index * 0.8)}px, ${mousePosition.y * (0.8 + index * 0.4)}px, 0)`,
+                    }}
                   >
-                    {/* Step Number Circle */}
-                    <div className="relative inline-block mb-4">
-                      <div className="w-20 h-20 bg-white border-4 border-secondary rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-500 ease-out shadow-md relative z-10">
-                        <StepIcon className="h-8 w-8 text-secondary transition-transform duration-300 group-hover:scale-110" />
+                    {/* Enhanced Step Circle */}
+                    <div className="relative inline-block mb-6">
+                      <div className="w-24 h-24 bg-gradient-to-br from-white to-gray-50 border-4 border-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 ease-out shadow-lg relative z-10 tilt-hover">
+                        <StepIcon className="h-10 w-10 text-secondary transition-all duration-300 group-hover:scale-125 group-hover:text-primary" />
                       </div>
-                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                      
+                      {/* Step Number Badge */}
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-primary to-secondary text-white text-sm font-bold rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md">
                         {step.step}
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-full animate-pulse opacity-30"></div>
+                      
+                      {/* Pulsing Background */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-full animate-pulse opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
+                      
+                      {/* Success Checkmark (appears when step is "completed") */}
+                      {isVisible && (
+                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center animate-scale-in">
+                          <CheckCircle className="h-4 w-4 text-white" />
+                        </div>
+                      )}
                     </div>
                     
-                    <h4 className="text-xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors duration-500 ease-out">
-                      {step.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">
-                      {step.description}
-                    </p>
+                    <div className="space-y-3">
+                      <h4 className="text-xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors duration-500 ease-out">
+                        {step.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out leading-relaxed px-2">
+                        {step.description}
+                      </p>
+                      
+                      {/* Progress Indicator */}
+                      {isVisible && (
+                        <div className="w-12 h-1 bg-gradient-to-r from-secondary to-primary rounded-full mx-auto animate-progress-fill"></div>
+                      )}
+                    </div>
                   </div>
                 );
               })}
