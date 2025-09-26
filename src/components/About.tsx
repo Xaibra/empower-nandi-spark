@@ -10,13 +10,23 @@ import {
   Calendar,
   Sparkles,
   Quote,
-  ArrowRight
+  ArrowRight,
+  Zap,
+  Shield,
+  Lightbulb,
+  Leaf,
+  Handshake,
+  Star,
+  ChevronRight,
+  CheckCircle
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useButtonAction } from "@/utils/buttonActions";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [activeValue, setActiveValue] = useState(0);
+  const [hoveredValue, setHoveredValue] = useState<number | null>(null);
   const { ctaActions, formActions } = useButtonAction();
 
   useEffect(() => {
@@ -36,6 +46,17 @@ const About = () => {
       if (element) observer.unobserve(element);
     };
   }, []);
+
+  // Auto-rotate active value every 5 seconds
+  useEffect(() => {
+    if (!isVisible) return;
+    
+    const interval = setInterval(() => {
+      setActiveValue((prev) => (prev + 1) % 6);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isVisible]);
 
   const milestones = [
     {
@@ -72,32 +93,68 @@ const About = () => {
     {
       title: "Empowerment",
       description: "We believe every young person and woman has the potential to lead transformation in their community.",
-      icon: "💪"
+      detail: "Through capacity building, mentorship, and leadership development programs, we unlock individual potential.",
+      icon: Zap,
+      color: "from-orange-500 to-red-600",
+      bgColor: "bg-orange-50",
+      stats: "800+ empowered",
+      category: "Individual Growth",
+      examples: ["Leadership training", "Skills development", "Mentorship programs"]
     },
     {
       title: "Inclusion",
       description: "We ensure our programs reach the most marginalized, leaving no one behind in our journey to progress.",
-      icon: "🤝"
+      detail: "Creating safe spaces where everyone, regardless of background, can participate and thrive in our programs.",
+      icon: Shield,
+      color: "from-blue-500 to-indigo-600",
+      bgColor: "bg-blue-50",
+      stats: "100% inclusive",
+      category: "Social Equity",
+      examples: ["Safe spaces", "Accessibility focus", "Barrier removal"]
     },
     {
       title: "Innovation",
       description: "We embrace creative solutions and technology to address complex social challenges effectively.",
-      icon: "🚀"
+      detail: "Leveraging digital tools, creative approaches, and cutting-edge methodologies for maximum impact.",
+      icon: Lightbulb,
+      color: "from-purple-500 to-pink-600",
+      bgColor: "bg-purple-50",
+      stats: "15+ innovations",
+      category: "Creative Solutions",
+      examples: ["Digital platforms", "Creative programs", "Tech integration"]
     },
     {
       title: "Sustainability",
       description: "We build programs that create lasting change and can be sustained by communities themselves.",
-      icon: "🌱"
+      detail: "Environmental stewardship and program sustainability ensure long-term positive impact for communities.",
+      icon: Leaf,
+      color: "from-green-500 to-emerald-600",
+      bgColor: "bg-green-50",
+      stats: "10,000+ trees",
+      category: "Long-term Impact",
+      examples: ["Community ownership", "Environmental care", "Self-sustaining models"]
     },
     {
       title: "Partnership",
       description: "We collaborate with stakeholders across sectors to amplify our impact and reach.",
-      icon: "🔗"
+      detail: "Strategic alliances with government, private sector, and civil society maximize our collective impact.",
+      icon: Handshake,
+      color: "from-teal-500 to-cyan-600",
+      bgColor: "bg-teal-50",
+      stats: "50+ partners",
+      category: "Collaboration",
+      examples: ["Multi-sector alliances", "Community partnerships", "Resource sharing"]
     },
     {
       title: "Integrity",
       description: "We operate with transparency, accountability, and ethical practices in all our endeavors.",
-      icon: "⭐"
+      detail: "Maintaining the highest standards of ethics, transparency, and accountability in all our operations.",
+      icon: Star,
+      color: "from-yellow-500 to-orange-600",
+      bgColor: "bg-yellow-50",
+      stats: "100% transparent",
+      category: "Ethical Practice",
+      examples: ["Open governance", "Financial transparency", "Ethical standards"]
     }
   ];
 
@@ -276,39 +333,180 @@ const About = () => {
           </div>
         </div>
 
-        {/* Values Section */}
-        <div className={`transition-all duration-1000 delay-800 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        {/* Enhanced Values Section */}
+        <div className={`mb-20 transition-all duration-1200 delay-800 ease-out ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Our <span className="text-secondary">Values</span>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center mb-6">
+              <Star className="h-5 w-5 text-secondary mr-3 opacity-70 animate-pulse" />
+              <span className="text-sm font-medium text-secondary uppercase tracking-widest">Core Values</span>
+              <Star className="h-5 w-5 text-secondary ml-3 opacity-70 animate-pulse" style={{ animationDelay: '1s' }} />
+            </div>
+            <h3 className="text-4xl md:text-6xl font-bold text-primary mb-8 leading-tight">
+              Our <span className="text-brand-gradient">Values</span>
             </h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              The principles that guide every decision, program, and partnership we make
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              The <span className="text-secondary font-semibold">6 fundamental principles</span> that guide every decision, 
+              program, and partnership we make in our journey to transform communities.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {values.map((value, index) => (
-              <Card 
-                key={index} 
-                className="group p-6 text-center transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 hover:border-secondary/20 cursor-pointer"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardContent className="p-0">
-                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {value.icon}
-                  </div>
-                  <h4 className="text-xl font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
-                    {value.title}
-                  </h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
+          {/* Interactive Values Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {values.map((value, index) => {
+              const Icon = value.icon;
+              const isActive = activeValue === index;
+              const isHovered = hoveredValue === index;
+              
+              return (
+                <Card 
+                  key={index}
+                  className={`group cursor-pointer transition-all duration-700 hover:scale-[1.02] border-2 overflow-hidden ${
+                    isActive 
+                      ? 'border-secondary shadow-xl shadow-secondary/10 scale-[1.01] bg-gradient-to-br from-white to-secondary/3' 
+                      : 'border-muted hover:border-secondary/40 hover:shadow-lg'
+                  }`}
+                  onMouseEnter={() => {
+                    setHoveredValue(index);
+                    setActiveValue(index);
+                  }}
+                  onMouseLeave={() => setHoveredValue(null)}
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  <CardContent className="p-0">
+                    {/* Card Header */}
+                    <div className={`p-6 relative overflow-hidden transition-all duration-700 ${
+                      isActive ? value.bgColor : 'bg-muted/10'
+                    }`}>
+                      <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r ${value.color} transition-opacity duration-700`}></div>
+                      <div className="relative z-10">
+                        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 transition-all duration-700 ease-out ${
+                          isActive || isHovered 
+                            ? `bg-gradient-to-r ${value.color} scale-105 shadow-md` 
+                            : 'bg-white border-2 border-muted'
+                        }`}>
+                          <Icon className={`h-8 w-8 transition-all duration-300 ${
+                            isActive || isHovered ? 'text-white' : 'text-secondary'
+                          }`} />
+                        </div>
+                        
+                        <Badge 
+                          variant={isActive ? "secondary" : "outline"} 
+                          className={`mb-3 transition-all duration-500 ${
+                            isActive ? 'opacity-90' : 'opacity-70'
+                          }`}
+                        >
+                          {value.category}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <h4 className={`text-xl font-bold mb-3 transition-colors duration-500 ease-out ${
+                        isActive ? 'text-secondary' : 'text-primary group-hover:text-secondary'
+                      }`}>
+                        {value.title}
+                      </h4>
+                      
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4 group-hover:text-foreground transition-colors duration-500 ease-out">
+                        {value.description}
+                      </p>
+
+                      {/* Stats and Examples */}
+                      <div className="flex items-center justify-between mb-4">
+                        <span className={`text-xs font-semibold px-3 py-1 rounded-full transition-all duration-500 ease-out ${
+                          isActive 
+                            ? 'bg-secondary text-white' 
+                            : 'bg-muted text-muted-foreground group-hover:bg-secondary/80 group-hover:text-white'
+                        }`}>
+                          {value.stats}
+                        </span>
+                        
+                        <ChevronRight className={`h-4 w-4 transition-all duration-500 ease-out ${
+                          isActive || isHovered 
+                            ? 'text-secondary translate-x-0.5' 
+                            : 'text-muted-foreground group-hover:text-secondary group-hover:translate-x-0.5'
+                        }`} />
+                      </div>
+
+                      {/* Expanded Detail */}
+                      <div className={`transition-all duration-700 ease-out overflow-hidden ${
+                        isActive ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'
+                      }`}>
+                        <p className="text-xs text-muted-foreground italic border-t pt-3 mb-2">
+                          {value.detail}
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {value.examples.map((example, idx) => (
+                            <span key={idx} className="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-full">
+                              {example}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Progress Indicators */}
+          <div className="flex justify-center mb-16 space-x-2">
+            {values.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveValue(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-500 ease-out ${
+                  activeValue === index 
+                    ? 'bg-secondary scale-110 shadow-sm' 
+                    : 'bg-muted hover:bg-secondary/60 hover:scale-105'
+                }`}
+              />
             ))}
+          </div>
+
+          {/* Values in Action Section */}
+          <div className="bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 rounded-2xl p-8 border-2 border-secondary/20">
+            <div className="text-center mb-8">
+              <CheckCircle className="h-10 w-10 text-secondary mx-auto mb-4 animate-pulse opacity-80" />
+              <h4 className="text-2xl md:text-3xl font-bold text-primary mb-4">
+                Values in <span className="text-secondary">Action</span>
+              </h4>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                These aren't just words on paper - they're the driving force behind every program, 
+                partnership, and interaction we have with our community.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="text-center p-4">
+                <div className="text-2xl font-bold text-secondary mb-2">800+</div>
+                <div className="text-sm text-muted-foreground">Lives Empowered</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-2xl font-bold text-secondary mb-2">50+</div>
+                <div className="text-sm text-muted-foreground">Strategic Partners</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-2xl font-bold text-secondary mb-2">100%</div>
+                <div className="text-sm text-muted-foreground">Transparency</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-2xl font-bold text-secondary mb-2">15+</div>
+                <div className="text-sm text-muted-foreground">Innovations</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-2xl font-bold text-secondary mb-2">10K+</div>
+                <div className="text-sm text-muted-foreground">Trees Planted</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-2xl font-bold text-secondary mb-2">8</div>
+                <div className="text-sm text-muted-foreground">Sub-counties</div>
+              </div>
+            </div>
           </div>
         </div>
 
