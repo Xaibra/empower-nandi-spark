@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Users, Handshake, Briefcase } from "lucide-react";
+import { useButtonAction } from "@/utils/buttonActions";
 
 const GetInvolved = () => {
+  const { formActions, socialActions } = useButtonAction();
+  
   const opportunities = [
     {
       icon: Heart,
@@ -92,7 +95,16 @@ const GetInvolved = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button variant={opportunity.variant} className="w-full">
+                  <Button 
+                    variant={opportunity.variant} 
+                    className="w-full"
+                    onClick={
+                      opportunity.title === 'Donate' ? formActions.openDonationForm :
+                      opportunity.title === 'Volunteer & Mentor' ? formActions.openVolunteerForm :
+                      opportunity.title === 'Partner With Us' ? formActions.openPartnershipForm :
+                      formActions.openContactForm
+                    }
+                  >
                     {opportunity.cta}
                   </Button>
                 </CardContent>
@@ -111,10 +123,18 @@ const GetInvolved = () => {
             and how you can get involved.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="outline" size="lg">
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={formActions.openContactForm}
+            >
               Contact Us
             </Button>
-            <Button variant="ghost" size="lg">
+            <Button 
+              variant="ghost" 
+              size="lg"
+              onClick={socialActions.whatsapp}
+            >
               WhatsApp: +254 700 000 000
             </Button>
           </div>

@@ -3,10 +3,12 @@ import { ArrowRight, Users, Target, Heart, Sparkles, Award } from "lucide-react"
 import { useEffect, useState } from "react";
 import heroImage from "@/assets/hero-image.jpg";
 import TujitumeLogo from "@/assets/tujitume-logo.svg";
+import { useButtonAction } from "@/utils/buttonActions";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentStat, setCurrentStat] = useState(0);
+  const { ctaActions, formActions } = useButtonAction();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -20,13 +22,13 @@ const Hero = () => {
   }, []);
 
   const stats = [
-    { icon: Users, value: "500+", label: "Youth Empowered", color: "text-secondary" },
-    { icon: Target, value: "8", label: "Core Programs", color: "text-accent" },
-    { icon: Heart, value: "15+", label: "Partner Organizations", color: "text-community" }
+    { icon: Users, value: "500+", label: "Lives Transformed", color: "text-secondary" },
+    { icon: Target, value: "7", label: "Comprehensive Programs", color: "text-accent" },
+    { icon: Heart, value: "15+", label: "Community Partners", color: "text-community" }
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="hero-section" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Enhanced Background with Parallax Effect */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/60 via-primary/70 to-primary/90 z-10"></div>
@@ -81,10 +83,9 @@ const Hero = () => {
           <p className={`text-xl md:text-2xl lg:text-3xl text-white/95 mb-12 max-w-4xl leading-relaxed transition-all duration-1000 delay-300 transform ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}>
-            We equip young people and women in Nandi County with 
-            <span className="font-semibold text-secondary">skills</span>, 
-            <span className="font-semibold text-secondary">opportunities</span>, and 
-            <span className="font-semibold text-secondary">support</span> to build livelihoods, champion equality, and transform communities.
+            Born from personal pain and community vision, we address the 
+            <span className="font-semibold text-secondary">root causes</span> of poverty and inequality through 
+            <span className="font-semibold text-secondary">comprehensive empowerment</span> that transforms lives, breaks cycles of violence, and builds a brighter, more inclusive future for all.
           </p>
           
           {/* Enhanced Interactive Stats */}
@@ -122,6 +123,7 @@ const Hero = () => {
               size="lg" 
               variant="secondary" 
               className="group text-lg px-10 py-5 rounded-full font-semibold shadow-brand hover:shadow-2xl hover:shadow-secondary/25 transform hover:scale-105 transition-all duration-300 hover:-translate-y-1"
+              onClick={ctaActions.joinProgram}
             >
               <span className="mr-3">Join a Program</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -130,6 +132,7 @@ const Hero = () => {
               size="lg" 
               variant="outline" 
               className="group text-lg px-10 py-5 rounded-full font-semibold border-2 border-white/30 text-white backdrop-blur-sm hover:bg-white hover:text-primary hover:border-white transform hover:scale-105 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              onClick={formActions.openPartnershipForm}
             >
               <Sparkles className="mr-3 h-5 w-5 group-hover:animate-spin" />
               Partner with Us

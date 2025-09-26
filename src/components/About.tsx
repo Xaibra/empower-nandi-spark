@@ -13,9 +13,11 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useButtonAction } from "@/utils/buttonActions";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { ctaActions, formActions } = useButtonAction();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,30 +39,30 @@ const About = () => {
 
   const milestones = [
     {
-      year: "April 2025",
-      title: "Founded with Vision",
-      description: "Established by passionate community leaders with a clear vision to address youth and women's challenges in Nandi County.",
-      icon: Users,
+      year: "2018-2020",
+      title: "The Awakening",
+      description: "Noeline Maru witnesses the devastating impact of drugs, alcoholism, and poverty in Chepterit Center. The loss of her closest family member to illicit brews becomes a catalyst for change.",
+      icon: Quote,
       color: "text-secondary"
     },
     {
-      year: "May 2025",
-      title: "First Programs Launch",
-      description: "Rapidly initiated skills training and economic empowerment programs, immediately engaging with local communities.",
-      icon: Target,
+      year: "COVID-19 Period",
+      title: "Crisis Deepens Vision",
+      description: "School closures and economic hardship push more youth to substance abuse and women to illicit alcohol brewing. Noeline realizes the urgent need for comprehensive intervention.",
+      icon: Heart,
       color: "text-primary"
     },
     {
-      year: "June-July 2025",
-      title: "Rapid Community Growth",
-      description: "Expanded outreach across multiple sub-counties with dynamic programming and community engagement initiatives.",
-      icon: Heart,
+      year: "2021-2022",
+      title: "Community Conversations Begin",
+      description: "Noeline shares her vision with like-minded individuals. Together, they begin community dialogues about breaking cycles of poverty, violence, and hopelessness.",
+      icon: Users,
       color: "text-accent"
     },
     {
-      year: "August 2025",
-      title: "Building Momentum",
-      description: "Achieved significant community impact, established key partnerships, and launched comprehensive digital presence.",
+      year: "2023-Present",
+      title: "Tujitume is Born",
+      description: "Official founding of Tujitume Youth and Women CBO. Launch of comprehensive programs addressing economic empowerment, gender equality, education, climate action, and community transformation.",
       icon: Award,
       color: "text-secondary"
     }
@@ -122,7 +124,7 @@ const About = () => {
             Our <span className="text-brand-gradient">Story</span>
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Born from a vision of empowered communities, we're transforming lives across Nandi County
+            From personal pain to community transformation - the story of Tujitume begins with one woman's vision to break cycles of poverty and violence in Nandi County
           </p>
         </div>
 
@@ -139,27 +141,28 @@ const About = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-primary mb-2">Our Founding Vision</h3>
-                    <Badge variant="secondary" className="mb-4">Est. April 2025</Badge>
+                    <Badge variant="secondary" className="mb-4">Founded 2023</Badge>
                   </div>
                 </div>
                 
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                   <p className="text-lg">
-                    <span className="font-semibold text-primary">Tujitume Youth & Women CBO</span> was born from a simple yet powerful observation: 
-                    young people and women in Nandi County possessed incredible potential, but lacked the platforms, 
-                    skills, and opportunities to realize their dreams.
+                    <span className="font-semibold text-primary">"My name is Noeline Maru, the founder of Tujitume Youth and Women CBO."</span> 
+                    The story begins in Chepterit Center, where I witnessed incredible potential weighed down by social challenges. 
+                    Many who seemed destined for greatness later sank into drugs, alcoholism, and hopelessness.
                   </p>
                   
                   <p>
-                    Founded by community leaders who experienced these challenges firsthand, we recognized that 
-                    <span className="font-semibold text-secondary"> sustainable change requires more than temporary solutions</span>. 
-                    It demands comprehensive empowerment that addresses economic, social, and personal development simultaneously.
+                    The pain became personal when I lost my closest family member to illicit brews. During COVID-19, 
+                    with schools closed and opportunities scarce, I watched young people turn to substance abuse while women, 
+                    lacking economic opportunities, <span className="font-semibold text-secondary">resorted to brewing and selling illicit alcohol for survival</span>.
                   </p>
                   
                   <p>
-                    What started as conversations in community centers has grown into a 
-                    <span className="font-semibold text-accent"> transformative movement</span> that now reaches across 
-                    8 sub-counties, touching hundreds of lives and building a network of empowered change-makers.
+                    I realized these challenges were deeply interconnected—poverty, unemployment, lack of education, drug abuse, 
+                    gender inequality, and gender-based violence were reinforcing each other. 
+                    <span className="font-semibold text-accent">Unless we created spaces for empowerment, mentorship, and opportunities, 
+                    the future of our youth and women would remain stifled.</span>
                   </p>
                 </div>
               </CardContent>
@@ -183,21 +186,20 @@ const About = () => {
                 
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                   <p className="text-lg font-medium text-primary">
-                    "To empower youth and women in Nandi County with the skills, opportunities, and support systems 
-                    they need to build sustainable livelihoods, champion equality, and lead community transformation."
+                    "To promote personal growth, leadership, and community transformation by addressing the root causes of poverty and inequality holistically."
                   </p>
                   
                   <p>
-                    We believe that when young people and women are equipped with the right tools and opportunities, 
-                    they become <span className="font-semibold text-secondary">catalysts for broader social change</span>. 
-                    Our holistic approach addresses immediate needs while building long-term capacity for community leadership.
+                    <span className="font-semibold text-secondary">Tujitume, which means 'let us push ourselves',</span> reflects our belief that solutions lie within us. 
+                    We exist to inspire and equip youth and women with the knowledge, skills, and opportunities they need to thrive. 
+                    Our vision is an inclusive society where youth and women unlock their full potential and lead lasting change.
                   </p>
                   
                   <div className="pt-4 border-t border-muted">
-                    <p className="text-sm font-medium text-primary mb-2">Our Focus Areas:</p>
+                    <p className="text-sm font-medium text-primary mb-2">Our Comprehensive Focus Areas:</p>
                     <div className="grid grid-cols-2 gap-2">
-                      {["Economic Empowerment", "Education & Skills", "Gender Equality", "Health & Wellbeing", 
-                        "Climate Action", "Civic Engagement", "Arts & Culture", "Digital Inclusion"].map((area, idx) => (
+                      {["Economic Empowerment", "Education & Capacity Building", "Gender Equality & Social Inclusion", "Climate Change & Environmental Conservation", 
+                        "Governance & Civic Engagement", "Arts, Culture & Sports", "Digital Inclusion & Innovation"].map((area, idx) => (
                         <div key={idx} className="flex items-center text-sm">
                           <div className="w-2 h-2 bg-secondary rounded-full mr-2"></div>
                           <span>{area}</span>
@@ -324,11 +326,19 @@ const About = () => {
                 or a partner wanting to make a difference - there's a place for you in our community.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="group">
+                <Button 
+                  size="lg" 
+                  className="group"
+                  onClick={ctaActions.getInvolved}
+                >
                   <span className="mr-2">Get Involved</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={formActions.openContactForm}
+                >
                   <Calendar className="h-4 w-4 mr-2" />
                   Schedule a Visit
                 </Button>

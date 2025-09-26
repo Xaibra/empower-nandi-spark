@@ -20,22 +20,46 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-    };
-
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1);
-      if (hash) setActiveSection(hash);
+      
+      // Update active section based on scroll position
+      const sections = navItems.map(item => item.href.slice(1));
+      let currentSection = sections[0];
+      
+      for (const section of sections) {
+        const element = document.getElementById(section === 'home' ? 'hero-section' : `${section}-section`);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section;
+          }
+        }
+      }
+      
+      if (currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange(); // Set initial state
+    handleScroll(); // Set initial state
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('hashchange', handleHashChange);
     };
-  }, []);
+  }, [activeSection]);
+
+  const smoothScrollTo = (href: string) => {
+    const targetId = href === '#home' ? 'hero-section' : `${href.slice(1)}-section`;
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const offsetTop = element.offsetTop - 80; // Account for navbar height
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -70,22 +94,28 @@ const Navigation = () => {
             {navItems.map((item, index) => {
               const isActive = activeSection === item.href.slice(1);
               return (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className={`relative px-4 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScrollTo(item.href);
+                  }}
+                  className={`group relative px-4 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 transform active:scale-95 ${
                     isActive 
-                      ? 'text-secondary bg-secondary/10' 
+                      ? 'text-white bg-gradient-to-r from-secondary to-orange-500 shadow-lg' 
                       : 'text-foreground hover:text-secondary hover:bg-secondary/5'
                   }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <span className="relative z-10">{item.name}</span>
+                  <span className="relative z-10 transition-all duration-300">{item.name}</span>
                   {isActive && (
-                    <div className="absolute inset-0 bg-secondary/10 rounded-full animate-scale-in"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-orange-500 rounded-full animate-scale-in shadow-glow"></div>
                   )}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-secondary transition-all duration-300 hover:w-full"></div>
-                </a>
+                  {!isActive && (
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-secondary to-orange-500 transition-all duration-300 group-hover:w-full"></div>
+                  )}
+                  <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 bg-gradient-to-r from-secondary to-orange-500 transition-all duration-300"></div>
+                </button>
               );
             })}
           </div>
@@ -128,18 +158,30 @@ const Navigation = () => {
         <div className={`md:hidden overflow-hidden transition-all duration-500 ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="pt-4 border-t border-border/30 mt-4">
             <div className="flex flex-col space-y-1">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="group flex items-center justify-between p-3 rounded-lg text-foreground hover:text-secondary hover:bg-secondary/5 transition-all duration-300 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <span>{item.name}</span>
-                  <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
-                </a>
-              ))}
+              {navItems.map((item, index) => {
+                const isActive = activeSection === item.href.slice(1);
+                return (
+                  <button
+                    key={item.name}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      smoothScrollTo(item.href);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`group flex items-center justify-between p-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 ${
+                      isActive 
+                        ? 'text-white bg-gradient-to-r from-secondary to-orange-500 shadow-lg'
+                        : 'text-foreground hover:text-secondary hover:bg-secondary/5'
+                    }`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <span className="transition-all duration-300">{item.name}</span>
+                    <ChevronRight className={`h-4 w-4 transition-all duration-300 ${
+                      isActive ? 'opacity-100 translate-x-1' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'
+                    }`} />
+                  </button>
+                );
+              })}
             </div>
             <div className="flex flex-col space-y-2 pt-4 mt-4 border-t border-border/20">
               <Button 

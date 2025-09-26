@@ -10,6 +10,7 @@ import Impact from "@/components/Impact";
 import News from "@/components/News";
 import GetInvolved from "@/components/GetInvolved";
 import Footer from "@/components/Footer";
+import ModalSystem from "@/components/ModalSystem";
 
 const Index = () => {
   return (
@@ -50,6 +51,7 @@ const Index = () => {
       <section id="contact">
         <Footer />
       </section>
+      <ModalSystem />
     </div>
   );
 };

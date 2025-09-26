@@ -154,22 +154,22 @@ const initialData = {
   teamMembers: [
     {
       id: '1',
-      name: 'Sarah Kimutai',
-      role: 'Executive Director & Co-Founder',
+      name: 'Noeline Maru',
+      role: 'Founder & Executive Director',
       department: 'Leadership',
-      bio: 'A passionate community development professional with extensive experience in youth and women empowerment. Co-founded Tujitume in April 2025.',
+      bio: 'Born and raised in Chepterit Center, Noeline founded Tujitume after witnessing the devastating impact of poverty, drugs, and gender-based violence in her community. Her personal experience losing a family member to illicit brews became the catalyst for creating comprehensive community transformation programs.',
       achievements: [
-        'Co-founded organization in April 2025 with clear vision and strategic planning',
-        'Rapidly secured partnerships with 8+ local and international organizations',
-        'Recognized as Young Leader of the Year by Nandi County Government (2022)'
+        'Founded Tujitume Youth & Women CBO in 2023 with vision for holistic community transformation',
+        'Developed comprehensive 7-program framework addressing root causes of poverty and inequality',
+        'Mobilized community support across 8 sub-counties in Nandi County'
       ],
-      expertise: ['Community Development', 'Strategic Planning', 'Partnership Development'],
-      contact: 's.kimutai@tujitume.org',
+      expertise: ['Community Development', 'Women\'s Empowerment', 'Gender-Based Violence Prevention', 'Youth Mentorship'],
+      contact: 'n.maru@tujitume.org',
       phone: '+254 712 345 678',
-      image: '/team/sarah-kimutai.jpg',
+      image: '/team/noeline-maru.jpg',
       color: 'secondary',
       isActive: true,
-      joinDate: '2025-04-01'
+      joinDate: '2023-01-01'
     },
     {
       id: '2',
@@ -188,7 +188,7 @@ const initialData = {
       image: '/team/james-kosgei.jpg',
       color: 'primary',
       isActive: true,
-      joinDate: '2025-04-10'
+      joinDate: '2023-06-01'
     }
   ] as TeamMember[],
   
@@ -262,11 +262,11 @@ const initialData = {
   
   siteSettings: {
     organizationName: 'Tujitume Youth & Women CBO',
-    tagline: 'Empowering Youth and Women to Lead Lasting Change',
-    description: 'We equip young people and women in Nandi County with skills, opportunities, and support to build livelihoods, champion equality, and transform communities.',
+    tagline: 'Let Us Push Ourselves to Transform Communities',
+    description: 'Founded by Noeline Maru, Tujitume addresses the root causes of poverty, inequality, and violence through comprehensive programs spanning economic empowerment, education, gender equality, climate action, governance, arts & culture, and digital inclusion across Nandi County.',
     email: 'info@tujitume.org',
     phone: '+254 712 345 678',
-    address: 'Kapsabet, Nandi County, Kenya',
+    address: 'Chepterit Center, Nandi County, Kenya',
     socialMedia: {
       facebook: 'https://facebook.com/tujitume',
       twitter: 'https://twitter.com/tujitume',

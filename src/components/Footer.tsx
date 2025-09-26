@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useButtonAction } from "@/utils/buttonActions";
 import { 
   MapPin, 
   Phone, 
@@ -14,6 +15,8 @@ import { useState, useEffect } from "react";
 import TujitumeLogo from "@/assets/tujitume-logo.svg";
 
 const Footer = () => {
+  const buttonActions = useButtonAction();
+  const { socialActions, formActions, navigationActions, ctaActions } = buttonActions || {};
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -46,11 +49,12 @@ const Footer = () => {
 
   const programs = [
     "Economic Empowerment",
-    "Education & Training",
-    "Gender Equality",
-    "Health & Wellbeing",
-    "Climate Action",
-    "Digital Inclusion"
+    "Education & Capacity Building",
+    "Gender Equality & Social Inclusion",
+    "Climate Change & Environmental Conservation",
+    "Governance & Civic Engagement",
+    "Arts, Culture & Sports",
+    "Digital Inclusion & Innovation"
   ];
 
   return (
@@ -94,26 +98,40 @@ const Footer = () => {
               </div>
               
               <p className="text-sm opacity-90 leading-relaxed hover:opacity-100 transition-opacity duration-300">
-                Empowering youth and women in Nandi County through comprehensive 
-                skills development, leadership training, and community engagement programs.
+                Founded by Noeline Maru to address root causes of poverty and violence, 
+                we create platforms for empowerment, mentorship, and opportunities that break cycles of hopelessness and transform communities.
               </p>
               
               {/* Enhanced Social Links */}
               <div className="flex space-x-2">
-                {socialLinks.map((social, index) => {
-                  const Icon = social.icon;
+                {socialLinks?.map((social, index) => {
+                  const Icon = social?.icon;
+                  if (!Icon || !social) return null;
+                  
+                  const getClickHandler = () => {
+                    if (!socialActions) return () => {};
+                    
+                    switch (social.label) {
+                      case 'Facebook': return socialActions.facebook || (() => {});
+                      case 'Twitter': return socialActions.twitter || (() => {});
+                      case 'Instagram': return socialActions.instagram || (() => {});
+                      case 'LinkedIn': return socialActions.linkedin || (() => {});
+                      case 'Email': return socialActions.email || (() => {});
+                      default: return () => {};
+                    }
+                  };
+                  
                   return (
                     <Button
-                      key={social.label}
+                      key={social.label || index}
                       variant="ghost"
                       size="icon"
                       className="h-10 w-10 text-primary-foreground hover:bg-secondary hover:text-white hover:scale-110 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg"
                       style={{ animationDelay: `${index * 0.1}s` }}
-                      asChild
+                      onClick={getClickHandler()}
+                      aria-label={social.label}
                     >
-                      <a href={social.href} aria-label={social.label}>
-                        <Icon className="h-4 w-4" />
-                      </a>
+                      <Icon className="h-4 w-4" />
                     </Button>
                   );
                 })}
@@ -124,17 +142,34 @@ const Footer = () => {
             <div className="animate-slide-in-up" style={{ animationDelay: '0.2s' }}>
               <h4 className="font-semibold text-xl mb-6 text-secondary">Quick Links</h4>
               <ul className="space-y-3">
-                {quickLinks.map((link, index) => (
-                  <li key={link.name} style={{ animationDelay: `${index * 0.1}s` }}>
-                    <a
-                      href={link.href}
-                      className="group text-sm opacity-90 hover:opacity-100 hover:text-secondary transition-all duration-300 flex items-center hover:translate-x-2"
-                    >
-                      <span className="w-0 group-hover:w-4 h-0.5 bg-secondary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
+                {quickLinks?.map((link, index) => {
+                  if (!link) return null;
+                  
+                  const getClickHandler = () => {
+                    if (!navigationActions || !ctaActions || !formActions) return () => {};
+                    
+                    switch (link.href) {
+                      case '#about': return () => navigationActions.scrollTo?.('about-section');
+                      case '#programs': return () => navigationActions.scrollTo?.('programs-section');
+                      case '#impact': return () => navigationActions.scrollTo?.('impact-section');
+                      case '#get-involved': return ctaActions.getInvolved || (() => {});
+                      case '#news': return () => navigationActions.scrollTo?.('news-section');
+                      default: return formActions.openContactForm || (() => {});
+                    }
+                  };
+                  
+                  return (
+                    <li key={link.name || index} style={{ animationDelay: `${index * 0.1}s` }}>
+                      <button
+                        onClick={getClickHandler()}
+                        className="group text-sm opacity-90 hover:opacity-100 hover:text-secondary transition-all duration-300 flex items-center hover:translate-x-2"
+                      >
+                        <span className="w-0 group-hover:w-4 h-0.5 bg-secondary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                        {link.name}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -142,14 +177,17 @@ const Footer = () => {
             <div className="animate-slide-in-up" style={{ animationDelay: '0.4s' }}>
               <h4 className="font-semibold text-xl mb-6 text-secondary">Our Programs</h4>
               <ul className="space-y-3">
-                {programs.map((program, index) => (
-                  <li key={program} style={{ animationDelay: `${index * 0.1}s` }}>
-                    <span className="text-sm opacity-90 hover:opacity-100 hover:text-secondary transition-all duration-300 cursor-pointer flex items-center group">
-                      <div className="w-2 h-2 bg-secondary rounded-full mr-3 group-hover:scale-125 transition-transform duration-300"></div>
-                      {program}
-                    </span>
-                  </li>
-                ))}
+                {programs?.map((program, index) => {
+                  if (!program) return null;
+                  return (
+                    <li key={program} style={{ animationDelay: `${index * 0.1}s` }}>
+                      <span className="text-sm opacity-90 hover:opacity-100 hover:text-secondary transition-all duration-300 cursor-pointer flex items-center group">
+                        <div className="w-2 h-2 bg-secondary rounded-full mr-3 group-hover:scale-125 transition-transform duration-300"></div>
+                        {program}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -160,7 +198,7 @@ const Footer = () => {
                 <div className="group flex items-start space-x-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300 cursor-pointer">
                   <MapPin className="h-5 w-5 mt-1 text-secondary flex-shrink-0 group-hover:animate-bounce" />
                   <span className="text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                    Kapsabet Town, Nandi County, Kenya
+                    Chepterit Center, Nandi County, Kenya
                   </span>
                 </div>
                 <div className="group flex items-center space-x-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300 cursor-pointer">
@@ -191,7 +229,7 @@ const Footer = () => {
           <div className="border-t border-white/20 mt-16 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-sm opacity-80 flex items-center">
-                © 2025 Tujitume Youth and Women CBO. Made with
+                © 2023-2025 Tujitume Youth and Women CBO. Made with
                 <Heart className="h-4 w-4 text-secondary mx-2 animate-pulse" /> 
                 in Nandi County, Kenya
               </p>

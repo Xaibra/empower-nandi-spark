@@ -19,6 +19,8 @@ import {
   ChevronRight
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import PhotoGallery from "@/components/PhotoGallery";
+import { sampleActivityImages, getFeaturedImages } from "@/data/activityImages";
 
 const Testimonials = () => {
   const [isVisible, setIsVisible] = useState(false);

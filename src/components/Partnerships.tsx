@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useButtonAction } from "@/utils/buttonActions";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -20,6 +21,7 @@ import {
 import { useState, useEffect } from "react";
 
 const Partnerships = () => {
+  const { formActions } = useButtonAction();
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -332,7 +334,12 @@ const Partnerships = () => {
                         <Badge variant="outline" className="text-xs capitalize">
                           {partner.category.replace('_', ' ')}
                         </Badge>
-                        <Button variant="ghost" size="sm" className="h-8 px-2 text-xs group-hover:bg-secondary group-hover:text-white transition-all duration-300">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-8 px-2 text-xs group-hover:bg-secondary group-hover:text-white transition-all duration-300"
+                          onClick={formActions.openContactForm}
+                        >
                           <Globe className="h-3 w-3 mr-1" />
                           Visit Site
                         </Button>
@@ -411,11 +418,19 @@ const Partnerships = () => {
                 Together, we can achieve more than we ever could alone.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="group">
+                <Button 
+                  size="lg" 
+                  className="group"
+                  onClick={formActions.openPartnershipForm}
+                >
                   <span className="mr-2">Explore Partnership</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={formActions.openContactForm}
+                >
                   <Building className="h-4 w-4 mr-2" />
                   Corporate Partnerships
                 </Button>

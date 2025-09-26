@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useButtonAction } from "@/utils/buttonActions";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -22,6 +23,7 @@ import {
 import { useState, useEffect } from "react";
 
 const News = () => {
+  const { formActions, ctaActions } = useButtonAction();
   const [isVisible, setIsVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -321,7 +323,12 @@ const News = () => {
                             <div className="flex items-center text-xs text-muted-foreground">
                               <span>By {article.author}</span>
                             </div>
-                            <Button variant="ghost" size="sm" className="group-hover:bg-secondary group-hover:text-white transition-all duration-300">
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="group-hover:bg-secondary group-hover:text-white transition-all duration-300"
+                              onClick={formActions.openContactForm}
+                            >
                               <span className="mr-2">Read More</span>
                               <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-300" />
                             </Button>
@@ -392,7 +399,12 @@ const News = () => {
                         </div>
                       </div>
 
-                      <Button variant="ghost" size="sm" className="w-full group-hover:bg-secondary group-hover:text-white transition-all duration-300">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="w-full group-hover:bg-secondary group-hover:text-white transition-all duration-300"
+                        onClick={formActions.openContactForm}
+                      >
                         <span className="mr-2">Read More</span>
                         <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-300" />
                       </Button>
@@ -455,7 +467,12 @@ const News = () => {
                       </div>
                     </div>
                     
-                    <Button variant="outline" size="sm" className="mt-4 w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="mt-4 w-full"
+                      onClick={formActions.openEventRegistration}
+                    >
                       <span className="mr-2">Register</span>
                       <ChevronRight className="h-3 w-3" />
                     </Button>
@@ -486,7 +503,11 @@ const News = () => {
                   placeholder="Enter your email address"
                   className="flex-1 px-4 py-2 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                 />
-                <Button size="lg" className="group">
+                <Button 
+                  size="lg" 
+                  className="group"
+                  onClick={formActions.openNewsletterSubscription}
+                >
                   <span className="mr-2">Subscribe</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>

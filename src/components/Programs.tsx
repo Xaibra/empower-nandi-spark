@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import { useButtonAction } from "@/utils/buttonActions";
 import { 
   DollarSign, 
   GraduationCap, 
@@ -17,6 +18,7 @@ import {
 const Programs = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const { formActions, ctaActions } = useButtonAction();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -181,6 +183,7 @@ const Programs = () => {
                       variant="ghost" 
                       size="sm" 
                       className="w-full group-hover:bg-secondary group-hover:text-white text-accent hover:text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
+                      onClick={formActions.openProgramInquiry}
                     >
                       <span>Learn More</span>
                       <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
@@ -199,6 +202,7 @@ const Programs = () => {
           <Button 
             size="lg" 
             className="group px-12 py-4 bg-gradient-to-r from-secondary to-orange-500 hover:from-orange-500 hover:to-secondary text-white font-semibold rounded-full shadow-brand hover:shadow-glow hover:scale-105 transition-all duration-300 hover:-translate-y-1"
+            onClick={ctaActions.explorePrograms}
           >
             <Sparkles className="h-5 w-5 mr-3 group-hover:animate-spin" />
             <span>Explore All Programs</span>
