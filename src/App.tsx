@@ -9,6 +9,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminTeam from "./pages/AdminTeam";
 import AdminNews from "./pages/AdminNews";
+import Experts from "./pages/Experts";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { AdminProvider } from "@/contexts/AdminContext";
@@ -28,6 +29,7 @@ const App = () => (
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Index />} />
+                <Route path="/experts" element={<Experts />} />
                 
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<AdminLogin />} />
