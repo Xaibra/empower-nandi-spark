@@ -23,17 +23,20 @@ const Experts = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [locationFilter, setLocationFilter] = useState("all");
 
-  const filteredProfiles = profiles.filter((profile) => {
-    const matchesSearch =
-      profile.business_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      profile.services.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredProfiles = profiles
+    // Only show approved/paid listings on the public page
+    .filter((profile) => profile.verified)
+    .filter((profile) => {
+      const matchesSearch =
+        profile.business_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        profile.services.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesLocation =
-      locationFilter === "all" ||
-      profile.location.toLowerCase().includes(locationFilter.toLowerCase());
+      const matchesLocation =
+        locationFilter === "all" ||
+        profile.location.toLowerCase().includes(locationFilter.toLowerCase());
 
-    return matchesSearch && matchesLocation;
-  });
+      return matchesSearch && matchesLocation;
+    });
 
   const locations = [...new Set(profiles.map((p) => p.location))];
 
@@ -45,16 +48,17 @@ const Experts = () => {
           <div className="container">
             <div className="text-center mb-8">
               <h1 className="text-3xl md:text-4xl font-bold mb-4">
-                Expert Directory
+                Experts & Business Showcase
               </h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Discover skilled professionals, entrepreneurs, and businesses in
-                our community. Connect with experts who can help you grow.
+                A curated space for youth and marginalized community businesses and experts
+                to showcase their products, services, and skills. Only approved (paid) listings
+                appear here so that opportunities reach those who need them most.
               </p>
             </div>
 
             {/* Search and Filters */}
-            <div className="bg-card rounded-xl p-4 shadow-sm mb-8">
+            <div className="bg-card rounded-xl p-4 shadow-sm mb-6">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -80,6 +84,21 @@ const Experts = () => {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            {/* Become an expert CTA */}
+            <div className="bg-primary/5 border border-primary/10 rounded-lg p-4 mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <p className="font-medium text-primary">
+                  Are you a youth or marginalized business or expert?
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Apply to be featured in this directory and reach more clients and partners.
+                </p>
+              </div>
+              <Button asChild variant="secondary">
+                <a href="/become-expert">Become an Expert</a>
+              </Button>
             </div>
 
             {/* Results */}
@@ -139,7 +158,7 @@ const Experts = () => {
                           <div className="absolute top-3 right-3">
                             <Badge className="bg-secondary text-secondary-foreground">
                               <Star className="h-3 w-3 mr-1 fill-current" />
-                              Verified
+                              Approved listing
                             </Badge>
                           </div>
                         </div>

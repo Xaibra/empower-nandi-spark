@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Users, Handshake, Briefcase } from "lucide-react";
 import { useButtonAction } from "@/utils/buttonActions";
+import { useNavigate } from "react-router-dom";
 
 const GetInvolved = () => {
   const { formActions, socialActions } = useButtonAction();
+  const navigate = useNavigate();
   
   const opportunities = [
     {
@@ -45,14 +47,14 @@ const GetInvolved = () => {
     },
     {
       icon: Briefcase,
-      title: "Join Our Team",
-      description: "Build your career while making a difference in your community.",
+      title: "Showcase Your Business",
+      description: "Youth and marginalized businesses can list their products and services in our experts directory.",
       highlights: [
-        "Full-time and part-time positions",
-        "Internship opportunities",
-        "Professional development support"
+        "Reach more customers and partners",
+        "Highlight your products and services",
+        "Be featured as a trusted local expert"
       ],
-      cta: "View Opportunities",
+      cta: "Become an Expert",
       variant: "community" as const
     }
   ];
@@ -102,6 +104,7 @@ const GetInvolved = () => {
                       opportunity.title === 'Donate' ? formActions.openDonationForm :
                       opportunity.title === 'Volunteer & Mentor' ? formActions.openVolunteerForm :
                       opportunity.title === 'Partner With Us' ? formActions.openPartnershipForm :
+                      opportunity.title === 'Showcase Your Business' ? () => navigate('/become-expert') :
                       formActions.openContactForm
                     }
                   >

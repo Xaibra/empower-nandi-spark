@@ -7,6 +7,7 @@ import {
   Handshake,
   Quote,
   TrendingUp,
+  Briefcase,
   Calendar,
   Eye,
   Plus,
@@ -42,6 +43,14 @@ const AdminDashboard = () => {
       changeType: 'positive' as const,
       icon: Handshake,
       color: 'bg-purple-500'
+    },
+    {
+      title: 'Expert Listings',
+      value: '8',
+      change: '+3 this month',
+      changeType: 'positive' as const,
+      icon: Briefcase,
+      color: 'bg-teal-500'
     },
     {
       title: 'Success Stories',
@@ -129,6 +138,13 @@ const AdminDashboard = () => {
       href: '/admin/partnerships/new',
       icon: Handshake,
       color: 'bg-purple-500'
+    },
+    {
+      title: 'Manage Experts',
+      description: 'Review youth & business listings',
+      href: '/admin/experts',
+      icon: Briefcase,
+      color: 'bg-teal-500'
     },
     {
       title: 'New Testimonial',

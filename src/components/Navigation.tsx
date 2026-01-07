@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import TujitumeLogo from "@/assets/tujitume-logo.svg";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -20,13 +23,16 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
+
+      // Only try to track sections on the home page where they exist
+      if (location.pathname !== "/") return;
+
       // Update active section based on scroll position
-      const sections = navItems.map(item => item.href.slice(1));
+      const sections = navItems.map((item) => item.href.slice(1));
       let currentSection = sections[0];
-      
+
       for (const section of sections) {
-        const element = document.getElementById(section === 'home' ? 'hero-section' : `${section}-section`);
+        const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
           if (rect.top <= 100 && rect.bottom >= 100) {
@@ -34,7 +40,7 @@ const Navigation = () => {
           }
         }
       }
-      
+
       if (currentSection !== activeSection) {
         setActiveSection(currentSection);
       }
@@ -46,17 +52,17 @@ const Navigation = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [activeSection]);
+  }, [activeSection, location.pathname]);
 
   const smoothScrollTo = (href: string) => {
-    const targetId = href === '#home' ? 'hero-section' : `${href.slice(1)}-section`;
+    const targetId = href.slice(1);
     const element = document.getElementById(targetId);
-    
+
     if (element) {
       const offsetTop = element.offsetTop - 80; // Account for navbar height
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -70,7 +76,10 @@ const Navigation = () => {
       <nav className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Enhanced Logo with Animation */}
-          <div className="flex items-center space-x-3 group cursor-pointer">
+          <div
+            className="flex items-center space-x-3 group cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <div className="relative">
               <img 
                 src={TujitumeLogo} 
@@ -98,6 +107,10 @@ const Navigation = () => {
                   key={item.name}
                   onClick={(e) => {
                     e.preventDefault();
+                    if (location.pathname !== "/") {
+                      navigate(`/${item.href}`);
+                      return;
+                    }
                     smoothScrollTo(item.href);
                   }}
                   className={`group relative px-4 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 transform active:scale-95 ${
@@ -126,8 +139,9 @@ const Navigation = () => {
               variant="ghost" 
               size="sm"
               className="group hover:scale-105 transition-all duration-300 hover:bg-primary/10 hover:text-primary"
+              onClick={() => navigate("/experts")}
             >
-              <span>Join Program</span>
+              <span>Experts</span>
               <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
             <Button 
@@ -165,6 +179,11 @@ const Navigation = () => {
                     key={item.name}
                     onClick={(e) => {
                       e.preventDefault();
+                      if (location.pathname !== "/") {
+                        navigate(`/${item.href}`);
+                        setIsMenuOpen(false);
+                        return;
+                      }
                       smoothScrollTo(item.href);
                       setIsMenuOpen(false);
                     }}
@@ -188,9 +207,12 @@ const Navigation = () => {
                 variant="ghost" 
                 size="sm" 
                 className="justify-start hover:bg-primary/10 hover:text-primary transition-all duration-300"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  navigate("/experts");
+                }}
               >
-                Join Program
+                Experts
               </Button>
               <Button 
                 variant="secondary" 

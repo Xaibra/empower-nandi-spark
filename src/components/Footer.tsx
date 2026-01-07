@@ -233,15 +233,23 @@ const Footer = () => {
                 <Heart className="h-4 w-4 text-secondary mx-2 animate-pulse" /> 
                 in Nandi County, Kenya
               </p>
-              <div className="flex space-x-6 text-sm">
-                <a href="#privacy" className="opacity-80 hover:opacity-100 hover:text-secondary transition-all duration-300 hover:underline">
-                  Privacy Policy
-                </a>
-                <a href="#terms" className="opacity-80 hover:opacity-100 hover:text-secondary transition-all duration-300 hover:underline">
-                  Terms of Use
-                </a>
-                <a href="#safeguarding" className="opacity-80 hover:opacity-100 hover:text-secondary transition-all duration-300 hover:underline">
-                  Safeguarding
+              <div className="flex items-center gap-6 text-sm">
+                <div className="flex space-x-6">
+                  <a href="#privacy" className="opacity-80 hover:opacity-100 hover:text-secondary transition-all duration-300 hover:underline">
+                    Privacy Policy
+                  </a>
+                  <a href="#terms" className="opacity-80 hover:opacity-100 hover:text-secondary transition-all duration-300 hover:underline">
+                    Terms of Use
+                  </a>
+                  <a href="#safeguarding" className="opacity-80 hover:opacity-100 hover:text-secondary transition-all duration-300 hover:underline">
+                    Safeguarding
+                  </a>
+                </div>
+                <a
+                  href="/admin/login"
+                  className="rounded-full border border-white/40 px-4 py-1 text-xs font-semibold uppercase tracking-wide opacity-80 hover:opacity-100 hover:bg-white/10 hover:text-secondary transition-all duration-300"
+                >
+                  Admin Login
                 </a>
               </div>
             </div>

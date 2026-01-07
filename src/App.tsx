@@ -9,11 +9,14 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminTeam from "./pages/AdminTeam";
 import AdminNews from "./pages/AdminNews";
+import AdminExperts from "./pages/AdminExperts";
 import Experts from "./pages/Experts";
+import BecomeExpert from "./pages/BecomeExpert";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { AdminProvider } from "@/contexts/AdminContext";
 import { DataProvider } from "@/contexts/DataContext";
+import { ExpertsProvider } from "@/contexts/ExpertsContext";
 
 const queryClient = new QueryClient();
 
@@ -22,14 +25,16 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <DataProvider>
-          <AdminProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+          <ExpertsProvider>
+            <AdminProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Index />} />
                 <Route path="/experts" element={<Experts />} />
+                <Route path="/become-expert" element={<BecomeExpert />} />
                 
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<AdminLogin />} />
@@ -37,6 +42,7 @@ const App = () => (
                   <Route path="dashboard" element={<AdminDashboard />} />
                   <Route path="team" element={<AdminTeam />} />
                   <Route path="news" element={<AdminNews />} />
+                  <Route path="experts" element={<AdminExperts />} />
                   <Route index element={<AdminDashboard />} />
                 </Route>
                 
@@ -45,6 +51,7 @@ const App = () => (
               </Routes>
             </BrowserRouter>
           </AdminProvider>
+        </ExpertsProvider>
         </DataProvider>
       </TooltipProvider>
     </QueryClientProvider>

@@ -18,7 +18,8 @@ import {
   Bell,
   Home,
   Shield,
-  ChevronRight
+  ChevronRight,
+  Briefcase
 } from 'lucide-react';
 
 const AdminLayout = () => {
@@ -48,6 +49,12 @@ const AdminLayout = () => {
       href: '/admin/news',
       icon: FileText,
       description: 'Manage articles and events'
+    },
+    {
+      name: 'Experts Directory',
+      href: '/admin/experts',
+      icon: Briefcase,
+      description: 'Manage expert & business listings'
     },
     {
       name: 'Partnerships',
