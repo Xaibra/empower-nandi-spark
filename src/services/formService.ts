@@ -237,7 +237,7 @@ ${messages[formType as keyof typeof messages] || 'Thank you for your submission.
 
 Your submission reference: #${Date.now().toString().slice(-6)}
 
-We appreciate your interest in our work to empower youth and women in Nandi County. If you have any urgent questions, please contact us at info@tujitume.org or call +254 712 345 678.
+We appreciate your interest in our work to empower youth and women in Nandi County. If you have any urgent questions, please contact us at info@tujitume.org or call +254725165153.
 
 Best regards,
 Tujitume Youth & Women CBO Team

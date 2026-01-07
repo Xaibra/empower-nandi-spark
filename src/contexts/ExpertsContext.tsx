@@ -63,7 +63,7 @@ export const ExpertsProvider: React.FC<{ children: React.ReactNode }> = ({ child
         pricing: "Packages from KES 5,000",
         description:
           "Helping youth-led businesses build strong digital brands and visual identities.",
-        phone: "+254712345678",
+        phone: "+254725165153",
         business_image_url: "/experts/chepterit-digital.jpg",
         verified: true,
       },

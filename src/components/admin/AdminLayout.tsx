@@ -88,7 +88,7 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 lg:flex">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div
@@ -98,9 +98,11 @@ const AdminLayout = () => {
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
+      <div
+        className={`z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 lg:static lg:inset-auto lg:translate-x-0
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+      >
         <div className="flex items-center justify-between h-16 px-6 bg-gradient-brand">
           <div className="flex items-center space-x-3">
             <Shield className="h-8 w-8 text-white" />
@@ -193,9 +195,9 @@ const AdminLayout = () => {
           </div>
         </div>
       </div>
-
+ 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="flex-1">
         {/* Top bar */}
         <div className="bg-white shadow-sm border-b border-gray-200">
           <div className="flex items-center justify-between h-16 px-4 sm:px-6">
@@ -231,7 +233,7 @@ const AdminLayout = () => {
         </div>
 
         {/* Page content */}
-        <main className="p-4 sm:p-6">
+        <main className="px-4 sm:px-6 py-4 sm:py-5">
           <Outlet />
         </main>
       </div>

@@ -28,6 +28,9 @@ const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
   const { testimonials } = useData();
+  // Testimonials now come from DataContext so that admin changes reflect here
+  const featuredTestimonials = testimonials.filter((t) => t.featured);
+  const displayedTestimonials = featuredTestimonials.length ? featuredTestimonials : testimonials;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,10 +58,6 @@ const Testimonials = () => {
     }, 6000);
     return () => clearInterval(interval);
   }, [displayedTestimonials.length]);
-
-  // Testimonials now come from DataContext so that admin changes reflect here
-  const featuredTestimonials = testimonials.filter((t) => t.featured);
-  const displayedTestimonials = featuredTestimonials.length ? featuredTestimonials : testimonials;
 
   const successStories = [
     {

@@ -233,7 +233,7 @@ const ContactForm = ({ onSuccess, className = '' }: ContactFormProps) => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-secondary" />
-                <span>+254 712 345 678</span>
+                <span>+254725165153</span>
               </div>
             </div>
           </div>

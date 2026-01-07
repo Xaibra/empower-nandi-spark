@@ -106,14 +106,14 @@ export const externalActions = {
   },
   
   openWhatsApp: (message?: string) => {
-    const phone = '254712345678'; // Tujitume phone number
+    const phone = '254725165153'; // Tujitume phone number
     const text = message || 'Hello, I would like to know more about Tujitume programs.';
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   },
   
   callPhone: () => {
-    window.location.href = 'tel:+254712345678';
+    window.location.href = 'tel:+254725165153';
   },
   
   sendEmail: (subject?: string, body?: string) => {

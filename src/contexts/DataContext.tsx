@@ -265,7 +265,7 @@ const initialData = {
     tagline: 'Let Us Push Ourselves to Transform Communities',
     description: 'Founded by Noeline Maru, Tujitume addresses the root causes of poverty, inequality, and violence through comprehensive programs spanning economic empowerment, education, gender equality, climate action, governance, arts & culture, and digital inclusion across Nandi County.',
     email: 'info@tujitume.org',
-    phone: '+254 712 345 678',
+    phone: '+254725165153',
     address: 'Chepterit Center, Nandi County, Kenya',
     socialMedia: {
       facebook: 'https://facebook.com/tujitume',

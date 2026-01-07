@@ -259,12 +259,11 @@ const ValueProposition = () => {
             <span className="text-sm font-medium text-secondary uppercase tracking-widest">Our Methodology</span>
             <Sparkles className="h-5 w-5 text-secondary ml-3 opacity-70 animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold text-primary mb-8 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 leading-tight">
             Our Approach to
-            <br />
-            <span className="text-brand-gradient animate-slide-in-up">Community Transformation</span>
+            <span className="block text-brand-gradient mt-1">Community Transformation</span>
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             We believe in empowering communities through 
             <span className="text-secondary font-semibold">comprehensive, inclusive programs</span> 
             that create lasting change and sustainable impact across 
@@ -396,16 +395,16 @@ const ValueProposition = () => {
         <div id="transformation-steps" className={`mb-20 transition-all duration-1200 delay-600 ease-out ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center mb-6">
               <Star className="h-4 w-4 text-secondary mr-3 opacity-70" />
               <span className="text-sm font-medium text-secondary uppercase tracking-widest">Our Process</span>
               <Star className="h-4 w-4 text-secondary ml-3 opacity-70" />
             </div>
-            <h3 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h3 className="text-2xl md:text-3xl font-bold text-primary mb-4">
               Our <span className="text-brand-gradient">Transformation Process</span>
             </h3>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               A systematic, evidence-based approach to creating 
               <span className="text-secondary font-semibold">sustainable community change</span> 
               through collaborative innovation.

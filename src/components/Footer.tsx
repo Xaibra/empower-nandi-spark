@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useButtonAction } from "@/utils/buttonActions";
+import { Link } from "react-router-dom";
 import { 
   MapPin, 
   Phone, 
@@ -204,7 +205,7 @@ const Footer = () => {
                 <div className="group flex items-center space-x-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300 cursor-pointer">
                   <Phone className="h-5 w-5 text-secondary flex-shrink-0 group-hover:animate-bounce" />
                   <span className="text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                    +254 700 000 000
+                    +254725165153
                   </span>
                 </div>
                 <div className="group flex items-center space-x-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300 cursor-pointer">
@@ -245,12 +246,12 @@ const Footer = () => {
                     Safeguarding
                   </a>
                 </div>
-                <a
-                  href="/admin/login"
+                <Link
+                  to="/admin/login"
                   className="rounded-full border border-white/40 px-4 py-1 text-xs font-semibold uppercase tracking-wide opacity-80 hover:opacity-100 hover:bg-white/10 hover:text-secondary transition-all duration-300"
                 >
                   Admin Login
-                </a>
+                </Link>
               </div>
             </div>
           </div>

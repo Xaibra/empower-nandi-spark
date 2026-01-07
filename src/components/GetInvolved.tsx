@@ -138,7 +138,7 @@ const GetInvolved = () => {
               size="lg"
               onClick={socialActions.whatsapp}
             >
-              WhatsApp: +254 700 000 000
+              WhatsApp: +254725165153
             </Button>
           </div>
         </div>

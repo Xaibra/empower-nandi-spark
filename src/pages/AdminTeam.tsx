@@ -56,7 +56,7 @@ const AdminTeam = () => {
       ],
       expertise: ['Community Development', 'Strategic Planning', 'Partnership Development'],
       contact: 's.kimutai@tujitume.org',
-      phone: '+254 712 345 678',
+      phone: '+254725165153',
       image: '/team/sarah-kimutai.jpg',
       color: 'secondary',
       isActive: true,
