@@ -21,11 +21,13 @@ import {
 import { useState, useEffect } from "react";
 import PhotoGallery from "@/components/PhotoGallery";
 import { sampleActivityImages, getFeaturedImages } from "@/data/activityImages";
+import { useData } from "@/contexts/DataContext";
 
 const Testimonials = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
+  const { testimonials } = useData();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,62 +49,16 @@ const Testimonials = () => {
 
   // Auto-rotate testimonials
   useEffect(() => {
+    if (!displayedTestimonials.length) return;
     const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      setCurrentTestimonial((prev) => (prev + 1) % displayedTestimonials.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [displayedTestimonials.length]);
 
-  const testimonials = [
-    {
-      name: "Mary Chebet",
-      age: 24,
-      location: "Kapsabet, Nandi County",
-      program: "Economic Empowerment",
-      role: "Small Business Owner",
-      quote: "Tujitume didn't just teach me business skills - they believed in my potential when no one else did. Today, my tailoring business employs 3 other women, and we're supporting 12 families in our community.",
-      story: "When I joined Tujitume's business training program in 2022, I was a single mother struggling to make ends meet. The comprehensive 3-month training covered business planning, financial management, and marketing. With their support, I secured a KES 50,000 loan and started my tailoring business. Within 18 months, my monthly income grew from KES 5,000 to KES 35,000.",
-      impact: "Increased monthly income by 600%",
-      image: "/testimonials/mary-chebet.jpg",
-      video: "/testimonials/mary-story.mp4"
-    },
-    {
-      name: "David Kiprotich",
-      age: 22,
-      location: "Mosoriot, Nandi County", 
-      program: "Digital Inclusion",
-      role: "Tech Entrepreneur",
-      quote: "The coding bootcamp at Tujitume opened doors I never imagined. From a village boy with no computer experience to running my own web development company - it's been an incredible journey.",
-      story: "Growing up in a rural area, I had never used a computer until I was 20. Tujitume's digital literacy program gave me my first exposure to technology. The 6-month coding bootcamp was intensive but transformative. I learned HTML, CSS, JavaScript, and mobile app development. Today, I run 'Nandi Digital Solutions' with 2 employees, serving businesses across the county.",
-      impact: "Built 15+ websites for local businesses",
-      image: "/testimonials/david-kiprotich.jpg",
-      video: "/testimonials/david-story.mp4"
-    },
-    {
-      name: "Grace Jepkemei",
-      age: 28,
-      location: "Kilibwoni, Nandi County",
-      program: "Gender Equality & Health",
-      role: "Community Health Advocate", 
-      quote: "Tujitume gave me the voice and platform to address gender-based violence in our community. As a survivor myself, I now help other women break the cycle and seek support.",
-      story: "After experiencing domestic violence, I felt isolated and hopeless. Tujitume's women's support group provided counseling and legal support that saved my life. Through their leadership training, I became a certified GBV counselor. I now coordinate a network of 12 women's groups across 4 sub-counties, reaching 300+ women monthly with support services and education.",
-      impact: "Supported 300+ women monthly",
-      image: "/testimonials/grace-jepkemei.jpg", 
-      video: "/testimonials/grace-story.mp4"
-    },
-    {
-      name: "Peter Langat",
-      age: 26,
-      location: "Kabiyet, Nandi County",
-      program: "Climate Action",
-      role: "Sustainable Farmer",
-      quote: "Climate-smart agriculture training from Tujitume transformed my struggling farm into a model for the community. My yields doubled, and I'm now training other farmers in sustainable practices.",
-      story: "Prolonged droughts and changing weather patterns had devastated my family's farm. Traditional farming methods were no longer working. Tujitume's climate-smart agriculture program introduced me to drought-resistant crops, water harvesting, and organic farming techniques. Within two seasons, my maize yield increased from 6 to 15 bags per acre. I now supply organic vegetables to 8 local schools.",
-      impact: "Increased crop yields by 150%",
-      image: "/testimonials/peter-langat.jpg",
-      video: "/testimonials/peter-story.mp4"
-    }
-  ];
+  // Testimonials now come from DataContext so that admin changes reflect here
+  const featuredTestimonials = testimonials.filter((t) => t.featured);
+  const displayedTestimonials = featuredTestimonials.length ? featuredTestimonials : testimonials;
 
   const successStories = [
     {
@@ -229,27 +185,27 @@ const Testimonials = () => {
                     
                     <div className="relative z-10">
                       <Badge variant="secondary" className="mb-4">
-                        {testimonials[currentTestimonial].program}
+                        {displayedTestimonials[currentTestimonial]?.program}
                       </Badge>
                       
                       <blockquote className="text-xl md:text-2xl text-primary font-medium leading-relaxed mb-8">
-                        "{testimonials[currentTestimonial].quote}"
+                        "{displayedTestimonials[currentTestimonial]?.quote}"
                       </blockquote>
 
                       <div className="space-y-4 mb-8">
                         <div className="flex items-center text-sm text-muted-foreground">
                           <Users className="h-4 w-4 mr-2 text-secondary" />
-                          <span className="font-semibold">{testimonials[currentTestimonial].name}</span>
+                          <span className="font-semibold">{displayedTestimonials[currentTestimonial]?.name}</span>
                           <span className="mx-2">•</span>
-                          <span>{testimonials[currentTestimonial].age} years old</span>
+                          <span>{displayedTestimonials[currentTestimonial]?.age} years old</span>
                         </div>
                         <div className="flex items-center text-sm text-muted-foreground">
                           <MapPin className="h-4 w-4 mr-2 text-secondary" />
-                          <span>{testimonials[currentTestimonial].location}</span>
+                          <span>{displayedTestimonials[currentTestimonial]?.location}</span>
                         </div>
                         <div className="flex items-center text-sm text-muted-foreground">
                           <Award className="h-4 w-4 mr-2 text-secondary" />
-                          <span>{testimonials[currentTestimonial].role}</span>
+                          <span>{displayedTestimonials[currentTestimonial]?.role}</span>
                         </div>
                       </div>
 
@@ -257,7 +213,7 @@ const Testimonials = () => {
                         <div className="flex items-center">
                           <TrendingUp className="h-5 w-5 text-secondary mr-2" />
                           <span className="font-semibold text-primary">Impact: </span>
-                          <span className="text-muted-foreground ml-2">{testimonials[currentTestimonial].impact}</span>
+                          <span className="text-muted-foreground ml-2">{displayedTestimonials[currentTestimonial]?.impact}</span>
                         </div>
                       </div>
                     </div>
@@ -294,7 +250,7 @@ const Testimonials = () => {
               </Button>
 
               <div className="flex gap-2">
-                {testimonials.map((_, index) => (
+                {displayedTestimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentTestimonial(index)}

@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useData } from '@/contexts/DataContext';
+import { useExpertProfiles } from '@/hooks/useExpertProfiles';
 import {
   Users,
   FileText,
@@ -18,44 +20,47 @@ import {
 } from 'lucide-react';
 
 const AdminDashboard = () => {
-  // Demo data - in real app, this would come from your API
+  // Pull live content stats from shared contexts so the dashboard reflects the real site data
+  const { teamMembers, newsArticles, partnerships, testimonials } = useData();
+  const { profiles } = useExpertProfiles();
+
   const stats = [
     {
       title: 'Total Team Members',
-      value: '15',
-      change: '+2 this month',
+      value: String(teamMembers.length),
+      change: 'Live',
       changeType: 'positive' as const,
       icon: Users,
       color: 'bg-blue-500'
     },
     {
       title: 'Published Articles',
-      value: '48',
-      change: '+6 this month',
+      value: String(newsArticles.filter((a) => a.status === 'published').length),
+      change: 'Live',
       changeType: 'positive' as const,
       icon: FileText,
       color: 'bg-green-500'
     },
     {
       title: 'Active Partnerships',
-      value: '12',
-      change: '+1 this month',
+      value: String(partnerships.length),
+      change: 'Live',
       changeType: 'positive' as const,
       icon: Handshake,
       color: 'bg-purple-500'
     },
     {
       title: 'Expert Listings',
-      value: '8',
-      change: '+3 this month',
+      value: String(profiles.length),
+      change: 'Live',
       changeType: 'positive' as const,
       icon: Briefcase,
       color: 'bg-teal-500'
     },
     {
       title: 'Success Stories',
-      value: '32',
-      change: '+4 this month',
+      value: String(testimonials.length),
+      change: 'Live',
       changeType: 'positive' as const,
       icon: Quote,
       color: 'bg-orange-500'
@@ -119,23 +124,23 @@ const AdminDashboard = () => {
 
   const quickActions = [
     {
-      title: 'Add Team Member',
-      description: 'Create a new team profile',
-      href: '/admin/team/new',
+      title: 'Manage Team',
+      description: 'View and add team profiles',
+      href: '/admin/team',
       icon: Users,
       color: 'bg-blue-500'
     },
     {
-      title: 'Create News Article',
-      description: 'Publish a new article',
-      href: '/admin/news/new',
+      title: 'Manage News & Events',
+      description: 'Create and edit articles',
+      href: '/admin/news',
       icon: FileText,
       color: 'bg-green-500'
     },
     {
-      title: 'Add Partnership',
-      description: 'Register new partner',
-      href: '/admin/partnerships/new',
+      title: 'Manage Partnerships',
+      description: 'Register and update partners',
+      href: '/admin/partnerships',
       icon: Handshake,
       color: 'bg-purple-500'
     },
@@ -147,9 +152,9 @@ const AdminDashboard = () => {
       color: 'bg-teal-500'
     },
     {
-      title: 'New Testimonial',
-      description: 'Add success story',
-      href: '/admin/testimonials/new',
+      title: 'Manage Testimonials',
+      description: 'Curate success stories',
+      href: '/admin/testimonials',
       icon: Quote,
       color: 'bg-orange-500'
     }

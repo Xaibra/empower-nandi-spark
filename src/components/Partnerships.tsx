@@ -19,9 +19,11 @@ import {
   Zap
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useData } from "@/contexts/DataContext";
 
 const Partnerships = () => {
   const { formActions } = useButtonAction();
+  const { partnerships } = useData();
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -51,104 +53,8 @@ const Partnerships = () => {
     { id: "community", label: "Community", icon: Users }
   ];
 
-  const partners = [
-    {
-      name: "UN Women Kenya",
-      category: "funding",
-      type: "International Development Agency",
-      partnership: "2025 - Present",
-      focus: "Women's Economic Empowerment & Gender Equality",
-      contribution: "USD 45,000 funding for women-focused programs",
-      impact: "300+ women reached with economic empowerment training",
-      logo: "/partners/un-women.png",
-      website: "https://kenya.unwomen.org/",
-      status: "active"
-    },
-    {
-      name: "Nandi County Government",
-      category: "government", 
-      type: "County Government",
-      partnership: "2025 - Present",
-      focus: "Youth Development & Skills Training",
-      contribution: "Office space, training venues, and policy support",
-      impact: "Official recognition and policy integration support",
-      logo: "/partners/nandi-county.png",
-      website: "https://nandicounty.go.ke/",
-      status: "active"
-    },
-    {
-      name: "Kenya Community Development Foundation",
-      category: "implementing",
-      type: "Local Foundation",
-      partnership: "2025 - Present",
-      focus: "Capacity Building & Organizational Development",
-      contribution: "Technical assistance and training programs",
-      impact: "Enhanced organizational systems and staff capacity",
-      logo: "/partners/kcdf.png", 
-      website: "https://kcdf.or.ke/",
-      status: "active"
-    },
-    {
-      name: "World Vision Kenya",
-      category: "funding",
-      type: "International NGO",
-      partnership: "2025 - Present",
-      focus: "Child Protection & Education",
-      contribution: "KES 2.5M for education and child protection programs", 
-      impact: "150+ children supported with education scholarships",
-      logo: "/partners/world-vision.png",
-      website: "https://www.worldvision.or.ke/",
-      status: "active"
-    },
-    {
-      name: "Kenya Red Cross Society",
-      category: "implementing",
-      type: "Humanitarian Organization", 
-      partnership: "2025 - Present",
-      focus: "Emergency Response & Health Programs",
-      contribution: "Training in first aid and emergency preparedness",
-      impact: "50+ community members trained as first responders",
-      logo: "/partners/kenya-redcross.png",
-      website: "https://www.redcross.or.ke/",
-      status: "active"
-    },
-    {
-      name: "Mastercard Foundation",
-      category: "funding",
-      type: "Private Foundation",
-      partnership: "2025 - Present",
-      focus: "Youth Employment & Entrepreneurship",
-      contribution: "USD 25,000 for youth entrepreneurship program", 
-      impact: "100+ youth trained in business and digital skills",
-      logo: "/partners/mastercard-foundation.png",
-      website: "https://mastercardfdnk.org/",
-      status: "active"
-    },
-    {
-      name: "Moi University",
-      category: "implementing", 
-      type: "Academic Institution",
-      partnership: "2025 - Present",
-      focus: "Research & Student Internships",
-      contribution: "Research collaboration and student placements",
-      impact: "Annual research on program effectiveness and community needs",
-      logo: "/partners/moi-university.png",
-      website: "https://www.mu.ac.ke/",
-      status: "active"
-    },
-    {
-      name: "Local Churches Network",
-      category: "community",
-      type: "Faith-Based Organizations", 
-      partnership: "2025 - Present",
-      focus: "Community Mobilization & Venues",
-      contribution: "Meeting spaces and community outreach support",
-      impact: "Reached 2,000+ community members through church networks",
-      logo: "/partners/churches-network.png",
-      website: "#",
-      status: "active"
-    }
-  ];
+  // Partnerships data now comes from DataContext so that admin changes reflect here
+  const partners = partnerships;
 
   const recognitions = [
     {
@@ -282,7 +188,7 @@ const Partnerships = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPartners.map((partner, index) => (
               <Card 
-                key={index}
+                key={partner.id ?? index}
                 className="group transition-all duration-500 hover:scale-105 hover:shadow-lg border-2 hover:border-secondary/20 overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >

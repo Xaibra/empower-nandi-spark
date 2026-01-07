@@ -10,6 +10,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminTeam from "./pages/AdminTeam";
 import AdminNews from "./pages/AdminNews";
 import AdminExperts from "./pages/AdminExperts";
+import AdminPartnerships from "./pages/AdminPartnerships";
+import AdminTestimonials from "./pages/AdminTestimonials";
+import AdminSettings from "./pages/AdminSettings";
 import Experts from "./pages/Experts";
 import BecomeExpert from "./pages/BecomeExpert";
 import AdminLayout from "@/components/admin/AdminLayout";
@@ -30,7 +33,7 @@ const App = () => (
               <Toaster />
               <Sonner />
               <BrowserRouter>
-              <Routes>
+                <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Index />} />
                 <Route path="/experts" element={<Experts />} />
@@ -43,15 +46,18 @@ const App = () => (
                   <Route path="team" element={<AdminTeam />} />
                   <Route path="news" element={<AdminNews />} />
                   <Route path="experts" element={<AdminExperts />} />
+                  <Route path="partnerships" element={<AdminPartnerships />} />
+                  <Route path="testimonials" element={<AdminTestimonials />} />
+                  <Route path="settings" element={<AdminSettings />} />
                   <Route index element={<AdminDashboard />} />
                 </Route>
                 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </AdminProvider>
-        </ExpertsProvider>
+                </Routes>
+              </BrowserRouter>
+            </AdminProvider>
+          </ExpertsProvider>
         </DataProvider>
       </TooltipProvider>
     </QueryClientProvider>
